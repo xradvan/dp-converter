@@ -1,5 +1,5 @@
 CC=g++ -std=c++11
-CFLAGS=-g -lntl -lgmp -lm -lcryptopp -lpthread
+CFLAGS=-g -lntl -lgmp -lm -lpthread
 C=-c
 
 all: main.o
