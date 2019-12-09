@@ -4,6 +4,7 @@ C=-c
 
 all: main.o
 	$(CC) main.o -o converter $(CFLAGS)
+	./converter
 	
 main.o: main.cpp
 	$(CC) $(C) main.cpp
