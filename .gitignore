@@ -1,0 +1,14 @@
+# Ignore o. files and app
+*.o
+converter
+
+# Ignore VS Code files
+.vscode
+
+# Ignore Qt creator files
+*.cflags
+*.config
+*.creator
+*.cxxflags
+*.files
+*.includes
