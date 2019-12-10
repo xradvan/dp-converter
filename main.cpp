@@ -3,6 +3,7 @@
 #include <NTL/GF2E.h>
 #include <NTL/GF2EX.h>
 #include <NTL/vec_GF2.h>
+#include <NTL/vec_GF2E.h>
 
 using namespace std;
 using namespace NTL;
@@ -44,24 +45,30 @@ int main(int argc, char *argv[]) {
 
 
 
-	GF2EX gf2ex_p = GF2EX(INIT_MONO, 3, gf2e_a);
-	cout << gf2ex_p << endl; 
-	
+	GF2EX gf2ex_p = GF2EX(INIT_MONO, 3);
 	long gf2ex_p_deg = deg(gf2ex_p);
-	cout << gf2ex_p_deg << endl;
 
-	// GF2E gf2e_template;
-	// cout << gf2e_template << endl;
-	// for (int i = 0; i < degree; i++)
-	// 	gf2e_template++;
-	// cout << gf2e_template << endl;
-	
-	GF2E gf2e_tmp;
-	for (int i = 0; i <= gf2ex_p_deg; i++) {
-		gf2e_tmp = coeff(gf2ex_p, i);
+	vec_GF2E vec_GF2E_tmp1;
+	vec_GF2E vec_GF2E_tmp2;
 
-		if (!IsZero(gf2e_tmp)) {
-			cout << gf2e_tmp << endl;
-		}
+	for (int i = 0; i < degree; i++) {
+		GF2E gf2e_tmp;
+		gf2e_tmp.LoopHole().SetLength(i + 1);
+		gf2e_tmp.LoopHole()[i] = 1;
+
+		vec_GF2E_tmp1.append(gf2e_tmp);
+		vec_GF2E_tmp2.append(gf2e_tmp);
 	}
+
+	cout << vec_GF2E_tmp1 << endl;
+	cout << vec_GF2E_tmp2 << endl;
+
+	// GF2E gf2e_tmp;
+	// for (int i = 0; i <= gf2ex_p_deg; i++) {
+	// 	gf2e_tmp = coeff(gf2ex_p, i);
+
+	// 	if (!IsZero(gf2e_tmp)) {
+	// 		cout << gf2e_tmp << endl;
+	// 	}
+	// }
 }
