@@ -7,13 +7,15 @@
 using namespace std;
 using namespace NTL;
 
+const long degree = 3;
+
 int main(int argc, char *argv[]) {
 	GF2 gf2_a = GF2(0);
 	GF2 gf2_b = GF2(1);
 	cout << "GF(2) ma prvky: " << gf2_a << " a " << gf2_b << endl << endl;
 
 
-	GF2X gf2x_p = GF2X(INIT_MONO, 3, 1);
+	GF2X gf2x_p = GF2X(INIT_MONO, degree, 1);
 	SetCoeff(gf2x_p, 0); 
 	SetCoeff(gf2x_p, 1);
 	cout << "Polynom typu GF(2)[X] je napriklad: " << gf2x_p << " = 1 + x + x^3" << endl << endl;
@@ -35,4 +37,31 @@ int main(int argc, char *argv[]) {
 	cout << "Napriklad a = " << gf2ex_a << ", b = " << gf2ex_b << endl;
 	cout << "a + b = " << gf2ex_a + gf2ex_b << endl;
 	cout << "a * b = " << gf2ex_a * gf2ex_b << endl;
+
+
+
+	cout << endl << "***************************************************************************" << endl << endl;
+
+
+
+	GF2EX gf2ex_p = GF2EX(INIT_MONO, 3, gf2e_a);
+	cout << gf2ex_p << endl; 
+	
+	long gf2ex_p_deg = deg(gf2ex_p);
+	cout << gf2ex_p_deg << endl;
+
+	// GF2E gf2e_template;
+	// cout << gf2e_template << endl;
+	// for (int i = 0; i < degree; i++)
+	// 	gf2e_template++;
+	// cout << gf2e_template << endl;
+	
+	GF2E gf2e_tmp;
+	for (int i = 0; i <= gf2ex_p_deg; i++) {
+		gf2e_tmp = coeff(gf2ex_p, i);
+
+		if (!IsZero(gf2e_tmp)) {
+			cout << gf2e_tmp << endl;
+		}
+	}
 }
