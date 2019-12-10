@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
 	cout << "a * b = " << gf2e_a * gf2e_b << endl << endl;
 
 
-	cout << "GF(2^3)[X] = {X^0*(1 + a + a^2) + X^1*(1 + a + a^2) + X^2*(1 + a + a^2) + ...}" << endl;
+	cout << "GF(2^3)[X] = {X^0 x {0, 1, a, ..., 1 + a + a^2}, X^1 x {0, 1, a, ..., 1 + a + a^2}, ... }" << endl;
 	GF2EX gf2ex_a = random_GF2EX(3);
 	GF2EX gf2ex_b = random_GF2EX(3);
 	cout << "Napriklad a = " << gf2ex_a << ", b = " << gf2ex_b << endl;
