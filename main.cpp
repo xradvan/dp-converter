@@ -45,30 +45,30 @@ int main(int argc, char *argv[]) {
 
 
 
-	GF2EX gf2ex_p = GF2EX(INIT_MONO, 3);
+	GF2EX gf2ex_p = GF2EX(INIT_MONO, 3, gf2e_a);
+	SetCoeff(gf2ex_p, 2, gf2e_b);
+	cout << gf2ex_p << endl;
 	long gf2ex_p_deg = deg(gf2ex_p);
 
+
+	GF2E gf2e_tmp;
 	vec_GF2E vec_GF2E_tmp1;
 	vec_GF2E vec_GF2E_tmp2;
+	
+	for (int i = 0; i <= gf2ex_p_deg; i++) {
+		gf2e_tmp = coeff(gf2ex_p, i);
 
-	for (int i = 0; i < degree; i++) {
-		GF2E gf2e_tmp;
-		gf2e_tmp.LoopHole().SetLength(i + 1);
-		gf2e_tmp.LoopHole()[i] = 1;
+		if (!IsZero(gf2e_tmp)) {
+			cout << gf2e_tmp << endl;
 
-		vec_GF2E_tmp1.append(gf2e_tmp);
-		vec_GF2E_tmp2.append(gf2e_tmp);
+			for (int i = 0; i < degree; i++) {
+				GF2E gf2e_temp;
+				gf2e_temp.LoopHole().SetLength(i + 1);
+				gf2e_temp.LoopHole()[i] = 1;
+
+				vec_GF2E_tmp1.append(gf2e_temp);
+				vec_GF2E_tmp2.append(gf2e_temp);
+			}
+		}
 	}
-
-	cout << vec_GF2E_tmp1 << endl;
-	cout << vec_GF2E_tmp2 << endl;
-
-	// GF2E gf2e_tmp;
-	// for (int i = 0; i <= gf2ex_p_deg; i++) {
-	// 	gf2e_tmp = coeff(gf2ex_p, i);
-
-	// 	if (!IsZero(gf2e_tmp)) {
-	// 		cout << gf2e_tmp << endl;
-	// 	}
-	// }
 }
