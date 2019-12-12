@@ -2,6 +2,8 @@
 #include <NTL/GF2X.h>
 #include <NTL/GF2E.h>
 #include <NTL/GF2EX.h>
+#include <NTL/mat_GF2.h>
+#include <NTL/vector.h>
 #include <NTL/vec_GF2.h>
 #include <NTL/vec_GF2E.h>
 
@@ -45,30 +47,78 @@ int main(int argc, char *argv[]) {
 
 
 
-	GF2EX gf2ex_p = GF2EX(INIT_MONO, 3, gf2e_a);
-	SetCoeff(gf2ex_p, 2, gf2e_b);
-	cout << gf2ex_p << endl;
+	GF2EX gf2ex_p = GF2EX(INIT_MONO, 3);
+	// SetCoeff(gf2ex_p, 2, gf2e_b);
+	// cout << gf2ex_p << endl;
 	long gf2ex_p_deg = deg(gf2ex_p);
 
 
-	GF2E gf2e_tmp;
-	vec_GF2E vec_GF2E_tmp1;
-	vec_GF2E vec_GF2E_tmp2;
+	Vec<mat_GF2> rovnice; 
+	rovnice.SetLength(degree);
+
+	mat_GF2 mat_GF2_a0;
+	mat_GF2 mat_GF2_a1;
+	mat_GF2 mat_GF2_a2;
+
+	mat_GF2_a0.SetDims(degree, degree);
+	mat_GF2_a1.SetDims(degree, degree);
+	mat_GF2_a2.SetDims(degree, degree);
 	
-	for (int i = 0; i <= gf2ex_p_deg; i++) {
-		gf2e_tmp = coeff(gf2ex_p, i);
+	rovnice[0] = mat_GF2_a0;
+	rovnice[1] = mat_GF2_a1;
+	rovnice[2] = mat_GF2_a2;
 
+	int a;
+	for (int i = 1; i <= gf2ex_p_deg; i++) {
+		GF2E gf2e_tmp = coeff(gf2ex_p, i);
+		
 		if (!IsZero(gf2e_tmp)) {
-			cout << gf2e_tmp << endl;
+			// cout << gf2e_tmp << endl;
+			
+			vec_GF2E vec_GF2E_tmp1;
+			vec_GF2E vec_GF2E_tmp2;
 
-			for (int i = 0; i < degree; i++) {
+			for (int j = 0; j < degree; j++) {
 				GF2E gf2e_temp;
-				gf2e_temp.LoopHole().SetLength(i + 1);
-				gf2e_temp.LoopHole()[i] = 1;
+				gf2e_temp.LoopHole().SetLength(j + 1);
+				gf2e_temp.LoopHole()[j] = 1;
 
 				vec_GF2E_tmp1.append(gf2e_temp);
 				vec_GF2E_tmp2.append(gf2e_temp);
 			}
+
+			// cout << "vec_GF2E_tmp1: " << vec_GF2E_tmp1 << endl;
+			for (int j = 0; j < degree; j++) {
+				power(vec_GF2E_tmp1[j], vec_GF2E_tmp1[j], 2);
+			}
+			cout << "vec_GF2E_tmp1: " << vec_GF2E_tmp1 << endl;
+			cout << "vec_GF2E_tmp2: " << vec_GF2E_tmp2 << endl;
+
+			for (int j = 0; j < degree; j++) {
+				for (int k = 0; k < degree; k++) {
+					GF2E gf2e_temp = vec_GF2E_tmp1[j] * vec_GF2E_tmp2[k]; 
+					// cout << "gf2e_temp: " << gf2e_temp << endl;
+					long gf2e_temp_deg = deg(gf2e_temp.LoopHole());
+					// cout << "gf2e_temp_deg: " << gf2e_temp_deg << endl;
+
+					for (int l = 0; l <= gf2e_temp_deg; l++) {
+						if (gf2e_temp.LoopHole()[l] == 1) {
+							rovnice[l][j][k] += 1;
+						}
+					}	
+				}
+			}
 		}
 	}
+
+	for (int i = 0; i < degree; i++) {
+		for (int j = 0; j < degree; j++) {
+			for (int k = 0; k < j; k++ ) {
+				rovnice[i][k][j] += rovnice[i][j][k];
+				rovnice[i][j][k] = 0;
+			}
+		}
+	}
+
+	cout << "Rovnice: " << rovnice << endl;
 }
