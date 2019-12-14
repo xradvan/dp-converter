@@ -12,8 +12,6 @@
 using namespace std;
 using namespace NTL;
 
-// test
-
 const long degree = 3;
 
 #define DEG_SIZE 8
@@ -222,5 +220,24 @@ int main(int argc, char *argv[]) {
 	// vypis rovnic
 	for (auto &r : rovnice) {
 		cout << r << endl;
+	}
+
+	cout << endl;
+	cout << "Galois Field : GF(2)" << endl;
+	cout << "Number of variables (n) : " << degree << endl;
+	cout << "Number of equations (m) : " << degree << endl;
+	cout << "Seed : 0" << endl;
+	cout << "Order : Graded reverse lexicographic order" << endl;
+	cout << "******************************************" << endl;
+
+	for (int i = 0; i < degree; i++) {
+		for (int j = 0; j < degree; j++)
+		for (int k = 0; k <= j; k++)
+			cout << rovnice[i].mat_gf2_quadratic[k][j] << " ";
+
+		for (int j = 0; j < degree; j++) 
+			cout << rovnice[i].vec_gf2_linear[j] << " ";
+
+		cout << rovnice[i].gf2_const << ";" << endl;
 	}
 }
