@@ -12,6 +12,51 @@ using namespace NTL;
 
 const long degree = 3;
 
+#define DEG_SIZE 8
+#define DEG_TYPE uint8_t
+
+struct PolyPowers
+{
+	int p1;
+	int p2;
+	PolyPowers() : p1(-1), p2(-1) {}
+};
+
+vec_GF2 intToVec(DEG_TYPE value)
+{
+	vec_GF2 v;
+	v.SetLength(DEG_SIZE);
+
+	for (int i = 0; i < DEG_SIZE; i++) {
+		v[i] = value & 0x1;
+		value >>= 1;
+	}
+	return v;
+}
+
+PolyPowers getPowers(DEG_TYPE degree)
+{
+	PolyPowers powers;
+	vec_GF2 v = intToVec(degree);
+	long hw = weight(v);
+	int *p = &(powers.p1);
+	if (hw == 2) {
+		for (int i = 0; i < v.length(); i++) {
+			if (v[i] == 1) {
+				*p = i;
+				p = &(powers.p2);
+			}
+		}
+	} else if (hw == 1) {
+		for (int i = 0; i < v.length(); i++) {
+			if (v[i] == 1) {
+				powers.p1 = i;
+			}
+		}
+	}
+	return powers;
+}
+
 int main(int argc, char *argv[]) {
 	GF2 gf2_a = GF2(0);
 	GF2 gf2_b = GF2(1);
