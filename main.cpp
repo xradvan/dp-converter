@@ -12,6 +12,8 @@
 using namespace std;
 using namespace NTL;
 
+// test
+
 const long degree = 3;
 
 #define DEG_SIZE 8
