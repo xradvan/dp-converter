@@ -3,6 +3,7 @@ CFLAGS=-g -lntl -lgmp -lm -lpthread
 C=-c
 
 all: main.o
+	clear
 	$(CC) main.o -o converter $(CFLAGS)
 	./converter
 	
