@@ -5,6 +5,7 @@
 #include <NTL/GF2E.h>
 #include <NTL/GF2EX.h>
 #include <NTL/mat_GF2.h>
+#include <NTL/mat_GF2E.h>
 #include <NTL/vector.h>
 #include <NTL/vec_GF2.h>
 #include <NTL/vec_GF2E.h>
@@ -115,15 +116,15 @@ void setAlphas(vec_GF2E &vec_gf2e, long p)
 }
 
 int main(int argc, char *argv[]) {
-	GF2 gf2_a = GF2(0);
-	GF2 gf2_b = GF2(1);
+	// GF2 gf2_a = GF2(0);
+	// GF2 gf2_b = GF2(1);
 	// cout << "GF(2) ma prvky: " << gf2_a << " a " << gf2_b << endl << endl;
 
 
-	// GF2X gf2x_p = BuildSparseIrred_GF2X(degree);
-	GF2X gf2x_p = GF2X(INIT_MONO, degree, 1);
-	SetCoeff(gf2x_p, 0); 
-	SetCoeff(gf2x_p, 1);
+	GF2X gf2x_p = BuildSparseIrred_GF2X(degree);
+	// GF2X gf2x_p = GF2X(INIT_MONO, degree, 1);
+	// SetCoeff(gf2x_p, 0); 
+	// SetCoeff(gf2x_p, 1);
 	// cout << "Polynom typu GF(2)[X] je napriklad: " << gf2x_p << " = 1 + x + x^3" << endl << endl;
 
 
@@ -138,8 +139,8 @@ int main(int argc, char *argv[]) {
 
 
 	// cout << "GF(2^3)[X] = {X^0 x {0, 1, a, ..., 1 + a + a^2}, X^1 x {0, 1, a, ..., 1 + a + a^2}, ... }" << endl;
-	GF2EX gf2ex_a = random_GF2EX(3);
-	GF2EX gf2ex_b = random_GF2EX(3);
+	// GF2EX gf2ex_a = random_GF2EX(3);
+	// GF2EX gf2ex_b = random_GF2EX(3);
 	// cout << "Napriklad a = " << gf2ex_a << ", b = " << gf2ex_b << endl;
 	// cout << "a + b = " << gf2ex_a + gf2ex_b << endl;
 	// cout << "a * b = " << gf2ex_a * gf2ex_b << endl;
@@ -148,11 +149,12 @@ int main(int argc, char *argv[]) {
 
 	// cout << endl << "***************************************************************************" << endl << endl;
 
-	// GF2EX gf2ex_p = random_GF2EX(3);
-	GF2EX gf2ex_p = GF2EX(INIT_MONO, 3);
+	GF2EX gf2ex_p = random_GF2EX(7); // random polynomial of degree < n 
+	// GF2EX gf2ex_p = GF2EX(INIT_MONO, 3);
 	// SetCoeff(gf2ex_p, 0, gf2e_b);
 	// SetCoeff(gf2ex_p, 1, gf2e_a);
-	cout << gf2ex_p << endl;
+	// SetCoeff(gf2ex_p, 2, gf2e_b);
+	cout << "gf2ex_p: " << endl << gf2ex_p << endl;
 	long gf2ex_p_deg = deg(gf2ex_p);
 
 	Vec<QuadraticPoly> rovnice;
@@ -229,32 +231,96 @@ int main(int argc, char *argv[]) {
 	}
 
 	// vypis rovnic
-	for (auto &r : rovnice) {
-		cout << r << endl;
-	}
+	// cout << "Sústava: " << endl;
+	// for (auto &r : rovnice) {
+	// 	cout << r << endl;
+	// }
 
-	cout << endl;
-	cout << "Galois Field : GF(2)" << endl;
-	cout << "Number of variables (n) : " << degree << endl;
-	cout << "Number of equations (m) : " << degree << endl;
-	cout << "Seed : 0" << endl;
-	cout << "Order : Graded reverse lexicographic order" << endl;
-	cout << "******************************************" << endl;
+	// cout << endl;
+	// cout << "Galois Field : GF(2)" << endl;
+	// cout << "Number of variables (n) : " << degree << endl;
+	// cout << "Number of equations (m) : " << degree << endl;
+	// cout << "Seed : 0" << endl;
+	// cout << "Order : Graded reverse lexicographic order" << endl;
+	// cout << "******************************************" << endl;
 
-	for (int i = 0; i < degree; i++) {
-		for (int j = 0; j < degree; j++)
-			for (int k = 0; k <= j; k++)
-				cout << rovnice[i].mat_gf2_quadratic[k][j] << " ";
+	// for (int i = 0; i < degree; i++) {
+	// 	for (int j = 0; j < degree; j++)
+	// 		for (int k = 0; k <= j; k++)
+	// 			cout << rovnice[i].mat_gf2_quadratic[k][j] << " ";
 
-		for (int j = 0; j < degree; j++) 
-			cout << rovnice[i].vec_gf2_linear[j] << " ";
+	// 	for (int j = 0; j < degree; j++) 
+	// 		cout << rovnice[i].vec_gf2_linear[j] << " ";
 
-		cout << rovnice[i].gf2_const << ";" << endl;
-	}
+	// 	cout << rovnice[i].gf2_const << ";" << endl;
+	// }
 
-	cout << endl;
+	// cout << endl;
 
+	// cout << "Test: " << endl;
 	int max_value = pow(2, degree);
+	// for (int i = 0; i < max_value; i++) {
+	// 	Vec<QuadraticPoly> rovnice_tmp;
+	// 	rovnice_tmp.SetLength(degree);
+	// 	for (int i = 0; i < degree; i++) {
+	// 		rovnice_tmp[i] = rovnice[i];
+	// 	}
+
+	// 	vec_GF2 pt = intToVec(i, degree);
+	// 	cout << i << ". " << pt << " -> ";
+	// 	vec_GF2 ct; ct.SetLength(degree);
+
+	// 	for (int i = 0; i < degree; i++)
+	// 		for (int j = 0; j < degree; j++)
+	// 			if (pt[j] == 0) {
+	// 				rovnice_tmp[i].vec_gf2_linear[j] = 0; 
+				
+	// 				for (int k = 0; k < degree; k++) // for (int k = j; k < N; k++)
+	// 					rovnice_tmp[i].mat_gf2_quadratic[j][k] = 0;
+	// 				for (int k = 0; k < degree; k++) // for (int k = 0; k < j; k++)
+	// 					rovnice_tmp[i].mat_gf2_quadratic[k][j] = 0;
+	// 			}
+
+
+	// 	for (int i = 0; i < degree; i++) {
+	// 		ct[i] += rovnice_tmp[i].gf2_const;
+	// 		for (int j = 0; j < degree; j++) {
+	// 			ct[i] += rovnice_tmp[i].vec_gf2_linear[j]; 								
+	// 			for (int k = 0; k < degree; k++)
+	// 				ct[i] += rovnice_tmp[i].mat_gf2_quadratic[j][k]; 								
+	// 		}
+	// 	}
+
+	// 	cout << ct << " ?= ";
+
+	// 	GF2X gf2x_pt = conv<GF2X>(pt);
+
+	// 	GF2E gf2e_pt;
+	// 	gf2e_pt.LoopHole() = gf2x_pt;
+
+	// 	// GF2E gf2e_result = eval(gf2ex_p, gf2e_pt);
+	// 	GF2E gf2e_result;
+	// 	for (int i = 0; i <= gf2ex_p_deg; i++) {
+	// 		GF2E gf2e_tmp = coeff(gf2ex_p, i);
+
+	// 		if (!IsZero(gf2e_tmp)) {
+	// 			gf2e_result += gf2e_tmp * power(gf2e_pt, i); 
+	// 		}
+	// 	}
+
+	// 	vec_GF2 vec_gf2_result = conv<vec_GF2>(conv<GF2X>(gf2e_result));
+	// 	vec_gf2_result.SetLength(degree);
+
+	// 	cout << vec_gf2_result << " " << (ct == vec_gf2_result ? "OK" : "NOK") << endl; 
+	// }
+
+
+
+	cout << "\nTransformacia 1: " << endl;
+
+	vec_GF2E vec_gf2e_inputs1;
+	vec_GF2E vec_gf2e_outputs1;
+
 	for (int i = 0; i < max_value; i++) {
 		Vec<QuadraticPoly> rovnice_tmp;
 		rovnice_tmp.SetLength(degree);
@@ -263,20 +329,18 @@ int main(int argc, char *argv[]) {
 		}
 
 		vec_GF2 pt = intToVec(i, degree);
-		cout << i << ". " << pt << " -> ";
 		vec_GF2 ct; ct.SetLength(degree);
 
 		for (int i = 0; i < degree; i++)
 			for (int j = 0; j < degree; j++)
 				if (pt[j] == 0) {
-					for (int k = 0; k < degree; k++) // for (int k = j; k < N; k++)
-						rovnice_tmp[i].mat_gf2_quadratic[j][k] = 0;
-					for (int k = 0; k < degree; k++) // for (int k = 0; k < j; k++)
-						rovnice_tmp[i].mat_gf2_quadratic[k][j] = 0;
-
 					rovnice_tmp[i].vec_gf2_linear[j] = 0; 
-				}
 
+					for (int k = 0; k < degree; k++) {
+						rovnice_tmp[i].mat_gf2_quadratic[j][k] = 0;
+						rovnice_tmp[i].mat_gf2_quadratic[k][j] = 0;
+					}
+				}
 
 		for (int i = 0; i < degree; i++) {
 			ct[i] += rovnice_tmp[i].gf2_const;
@@ -287,25 +351,102 @@ int main(int argc, char *argv[]) {
 			}
 		}
 
-		cout << ct << " ?= ";
-
 		GF2X gf2x_pt = conv<GF2X>(pt);
-
 		GF2E gf2e_pt;
 		gf2e_pt.LoopHole() = gf2x_pt;
+		vec_gf2e_inputs1.append(gf2e_pt);
 
-		GF2E gf2e_result;
-		for (int i = 0; i <= gf2ex_p_deg; i++) {
-			GF2E gf2e_tmp = coeff(gf2ex_p, i);
+		GF2X gf2x_ct = conv<GF2X>(ct);
+		GF2E gf2e_ct;
+		gf2e_ct.LoopHole() = gf2x_ct;
+		vec_gf2e_outputs1.append(gf2e_ct);
+	}
 
-			if (!IsZero(gf2e_tmp)) {
-				gf2e_result += gf2e_tmp * power(gf2e_pt, i); 
+	GF2EX gf2ex_px1 = interpolate(vec_gf2e_inputs1, vec_gf2e_outputs1);
+	cout << gf2ex_px1 << " " << (gf2ex_p == gf2ex_px1 ? "OK" : "NOK") << endl;
+
+
+
+	cout << "Transformacia 2:" << endl;	
+	int num = degree + ((degree * (degree - 1)) / 2); 
+
+	vec_GF2E vec_gf2e_inputs2;
+	vec_GF2E vec_gf2e_outputs2;
+
+	for (int i = 1; i <= num; i++) {
+		Vec<QuadraticPoly> rovnice_tmp;
+		rovnice_tmp.SetLength(degree);
+		for (int i = 0; i < degree; i++) {
+			rovnice_tmp[i] = rovnice[i];
+		}
+
+		vec_GF2 pt = intToVec(i, degree);
+		vec_GF2 ct; ct.SetLength(degree);
+
+		for (int i = 0; i < degree; i++)
+			for (int j = 0; j < degree; j++)
+				if (pt[j] == 0) {
+					rovnice_tmp[i].vec_gf2_linear[j] = 0; 
+
+					for (int k = 0; k < degree; k++) {
+						rovnice_tmp[i].mat_gf2_quadratic[j][k] = 0;
+						rovnice_tmp[i].mat_gf2_quadratic[k][j] = 0;
+					}
+				}
+
+		for (int i = 0; i < degree; i++) {
+			// ct[i] += rovnice_tmp[i].gf2_const;
+			for (int j = 0; j < degree; j++) {
+				ct[i] += rovnice_tmp[i].vec_gf2_linear[j]; 								
+				for (int k = 0; k < degree; k++)
+					ct[i] += rovnice_tmp[i].mat_gf2_quadratic[j][k]; 								
 			}
 		}
 
-		vec_GF2 vec_gf2_result = conv<vec_GF2>(conv<GF2X>(gf2e_result));
-		vec_gf2_result.SetLength(degree);
+		GF2X gf2x_pt = conv<GF2X>(pt);
+		GF2E gf2e_pt;
+		gf2e_pt.LoopHole() = gf2x_pt;
+		vec_gf2e_inputs2.append(gf2e_pt);
 
-		cout << vec_gf2_result << " " << (ct == vec_gf2_result ? "OK" : "NOK") << endl; 
+		GF2X gf2x_ct = conv<GF2X>(ct);
+		GF2E gf2e_ct;
+		gf2e_ct.LoopHole() = gf2x_ct;
+		vec_gf2e_outputs2.append(gf2e_ct);
+	}
+
+	int powers[num] = {};
+	for (int i = 0; i < degree; i++)
+		powers[i] = pow(2, i);
+
+	int tmp = degree;
+	for (int i = 0; i < degree; i++)
+		for (int j = i + 1; j < degree; j++)
+			powers[tmp++] = pow(2, i) + pow(2, j);
+
+	mat_GF2E mat_gf2e_A;
+	mat_gf2e_A.SetDims(num, num);
+
+	for (int i = 0; i < num; i++)
+		for (int j = 0; j < num; j++)
+			mat_gf2e_A[i][j] = power(vec_gf2e_inputs2[i], powers[j]);
+
+	GF2E gf2e_determinant;
+	vec_GF2E vec_gf2e_x;
+	vec_GF2E vec_GF2E_b = vec_gf2e_outputs2;
+	solve(gf2e_determinant, mat_gf2e_A, vec_gf2e_x, vec_GF2E_b); // A*x=b
+	
+	GF2E gf2e_null;
+	if (gf2e_determinant == gf2e_null) {
+		cout << "Zlyhalo: gf2e_determinant == gf2e_null" << endl;
+	} else {
+		GF2X gf2x_tmp_const;
+		for (int i = 0; i < degree; i++)
+			SetCoeff(gf2x_tmp_const, i, rovnice[i].gf2_const);
+
+		GF2EX gf2ex_px2; SetCoeff(gf2ex_px2, 0, conv<GF2E>(gf2x_tmp_const));
+		for (int i = 0; i < num; i++)
+			SetCoeff(gf2ex_px2, powers[i], vec_gf2e_x[i]);
+		
+		cout << gf2ex_px2 << " " << (gf2ex_p == gf2ex_px2 ? "OK" : "NOK") << endl;
 	}
 }
