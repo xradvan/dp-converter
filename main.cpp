@@ -372,6 +372,7 @@ int main(int argc, char *argv[]) {
 	cout << gf2ex_px1 << " " << (gf2ex_p == gf2ex_px1 ? "OK" : "NOK") << endl;
 
 
+	cout << endl;
 	cout << "Transformation 2:" << endl;
 	int num = degree + ((degree * (degree - 1)) / 2);
 
@@ -414,6 +415,9 @@ int main(int argc, char *argv[]) {
 		gf2e_ct.LoopHole() = gf2x_ct;
 		vec_gf2e_outputs2.append(gf2e_ct);
 	}
+
+	cout << "vec_gf2e_in : \n" << vec_gf2e_inputs2 << endl;
+	cout << "vec_gf2e_out: \n" << vec_gf2e_outputs2 << endl << endl;
 
 	int powers[num];
 	for (int i = 0; i < degree; i++)
