@@ -396,6 +396,7 @@ int main(int argc, char *argv[]) {
 				}
 
 		for (int i = 0; i < degree; i++) {
+			ct[i] += equations_tmp[i].gf2_const;
 			for (int j = 0; j < degree; j++) {
 				ct[i] += equations_tmp[i].vec_gf2_linear[j];
 				for (int k = 0; k < degree; k++)
