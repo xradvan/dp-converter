@@ -14,7 +14,7 @@ using namespace std;
 using namespace NTL;
 
 // Degree of extension
-const long degree = 3;
+const long degree = 4;
 
 #define DEG_SIZE 8
 #define DEG_TYPE uint8_t
@@ -209,9 +209,39 @@ int main(int argc, char *argv[]) {
 	GF2E::init(gf2x_p);
 
 	// Polynomial to convert
-	GF2EX gf2ex_p = random_GF2EX(7);
+	// GF2EX gf2ex_p = random_GF2EX(7);
 	// GF2EX gf2ex_p = GF2EX(INIT_MONO, 3);
 
+	GF2E c5;
+	c5.LoopHole().SetLength(4);
+	c5.LoopHole()[0] = 1;
+
+	GF2E c4;
+	c4.LoopHole().SetLength(4);
+	c4.LoopHole()[1] = 1;
+
+	GF2E c3;
+	c3.LoopHole().SetLength(4);
+	c3.LoopHole()[0] = 1;
+	c3.LoopHole()[3] = 1;
+
+	GF2E c2;
+	c2.LoopHole().SetLength(4);
+	c2.LoopHole()[0] = 1;
+	c2.LoopHole()[1] = 1;
+	c2.LoopHole()[2] = 1;
+
+	GF2E c1;
+	c1.LoopHole().SetLength(4);
+	c1.LoopHole()[1] = 1;
+
+	GF2EX gf2ex_p;
+	gf2ex_p.SetLength(6);
+	SetCoeff(gf2ex_p, 0, c1);
+	SetCoeff(gf2ex_p, 2, c2);
+	SetCoeff(gf2ex_p, 3, c3);
+	SetCoeff(gf2ex_p, 4, c4);
+	SetCoeff(gf2ex_p, 5, c5);
 
 	cout << "gf2ex_p: " << endl << gf2ex_p << endl;
 	long gf2ex_p_deg = deg(gf2ex_p);
