@@ -1,6 +1,5 @@
-# Ignore o. files and app
-*.o
-converter
+# Ignore build directory
+.build/
 
 # Ignore VS Code files
 .vscode

@@ -1,0 +1,3 @@
+// the configured options and settings for MQAnalyzer
+#define MQAnalyzer_VERSION_MAJOR @MQAnalyzer_VERSION_MAJOR@
+#define MQAnalyzer_VERSION_MINOR @MQAnalyzer_VERSION_MINOR@
