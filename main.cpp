@@ -1,4 +1,6 @@
 #include <math.h>
+#include <vector>
+#include <algorithm>
 #include <NTL/GF2XFactoring.h>
 #include <NTL/GF2.h>
 #include <NTL/GF2X.h>
@@ -204,6 +206,16 @@ void test(const Vec<QuadraticPoly> &equations, const GF2EX &gf2ex_p)
 	}
 }
 
+vec_GF2 gf2eToVec(GF2E v)
+{
+	vec_GF2 result;
+	result.SetLength(degree);
+	for (int i = 0; i < degree; i++) {
+		result[i] = v.LoopHole()[i];
+	}
+	return result;
+}
+
 int main(int argc, char *argv[]) {
 	GF2X gf2x_p = BuildSparseIrred_GF2X(degree);
 	GF2E::init(gf2x_p);
@@ -374,7 +386,11 @@ int main(int argc, char *argv[]) {
 
 	cout << endl;
 	cout << "Transformation 2:" << endl;
-	int num = degree + ((degree * (degree - 1)) / 2);
+	int num = degree + ((degree * (degree - 1)) / 2) + 1;
+
+	GF2E aa;
+	aa.LoopHole().SetLength(degree);
+	aa.LoopHole()[1] = 1;
 
 	vec_GF2E vec_gf2e_inputs2;
 	vec_GF2E vec_gf2e_outputs2;
@@ -382,7 +398,7 @@ int main(int argc, char *argv[]) {
 	for (int i = 1; i <= num; i++) {
 		Vec<QuadraticPoly> equations_tmp(equations);
 
-		vec_GF2 pt = intToVec(i, degree);
+		vec_GF2 pt = gf2eToVec(power(aa, i));
 		vec_GF2 ct; ct.SetLength(degree);
 
 		for (int i = 0; i < degree; i++)
@@ -419,14 +435,22 @@ int main(int argc, char *argv[]) {
 	cout << "vec_gf2e_in : \n" << vec_gf2e_inputs2 << endl;
 	cout << "vec_gf2e_out: \n" << vec_gf2e_outputs2 << endl << endl;
 
-	int powers[num];
+	std::vector<int> powers;
 	for (int i = 0; i < degree; i++)
-		powers[i] = pow(2, i);
+		powers.push_back(pow(2,i));
 
-	int tmp = degree;
 	for (int i = 0; i < degree; i++)
-		for (int j = i + 1; j < degree; j++)
-			powers[tmp++] = pow(2, i) + pow(2, j);
+		for (int j = i+1; j < degree; j++)
+			powers.push_back(pow(2,i) + pow(2, j));
+
+	sort(powers.begin(), powers.end());
+	auto last = unique(powers.begin(), powers.end());
+	powers.erase(last, powers.end());
+	powers.push_back(0);
+
+	for (auto i : powers)
+		cout << i << " ";
+	cout << endl;
 
 	mat_GF2E mat_gf2e_A;
 	mat_gf2e_A.SetDims(num, num);
