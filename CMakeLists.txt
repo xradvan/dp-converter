@@ -11,6 +11,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # to the source code
 configure_file(MQAnalyzerConfig.h.in MQAnalyzerConfig.h)
 
+# add our libraries
+add_subdirectory(converter)
+add_subdirectory(polylib)
+add_subdirectory(io)
+
 # add the executable
 add_executable(MQAnalyzer main.cpp)
 
@@ -18,20 +23,30 @@ add_executable(MQAnalyzer main.cpp)
 message(STATUS "Detecting NTL library")
 find_library(NTL_LIB ntl)
 if(NOT NTL_LIB)
-  message(FATAL_ERROR "NTL library not found")
+	message(FATAL_ERROR "NTL library not found")
 endif()
 
 # link libraries
-target_link_libraries(MQAnalyzer
-                    PUBLIC
-                    ${NTL_LIB}
-                    m
-                    gmp
-                    pthread
-                    )
+target_link_libraries(
+	MQAnalyzer PUBLIC
+
+	# our libs
+	Converter
+	IO
+	PolyLib
+
+	# NTL
+	${NTL_LIB} m gmp pthread
+)
 
 # add the binary tree to the search path for include files
 # so that we will find MQAnalyzerConfig.h
-target_include_directories(MQAnalyzer PUBLIC
-                          "${PROJECT_BINARY_DIR}"
-                          )
+target_include_directories(
+	MQAnalyzer PUBLIC
+	"${PROJECT_BINARY_DIR}"
+
+	# our libs
+	"${PROJECT_SOURCE_DIR}/converter"
+	"${PROJECT_SOURCE_DIR}/io"
+	"${PROJECT_SOURCE_DIR}/polylib"
+)
