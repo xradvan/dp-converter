@@ -3,5 +3,6 @@ add_library(IO
 	MockInput.cpp
 
 	# output
+	MQOutput.cpp
 	RawOutput.cpp
 )
