@@ -13,7 +13,6 @@ struct PrimitivePoly
 	NTL::GF2X rep;
 };
 
-// TODO
 struct PrimitivePolyFactory
 {
 	static PrimitivePoly createPolyOfDegree(int n);
