@@ -14,3 +14,6 @@ Doxygen is used to auto-generate docs from the source code. Further info at http
 1. Go to docs directory
 2. Run doxygen
 3. Open docs/html/index.html in your favourite web browser
+
+## Dependencies
+This software is build on top of NTL library, therefore installing is a must. Further info at https://www.shoup.net/ntl/.
