@@ -8,7 +8,6 @@
 
 // Primitive polynomial to build extension field
 // Internal representation by NTL::GF2X
-// TODO
 struct PrimitivePoly
 {
 	NTL::GF2X rep;
@@ -75,7 +74,6 @@ struct BasePolySet
 
 // Structure to represent polynomial over extension field
 // TODO add interface (ctor, << ... ), builder pattern?
-// TODO enforce ExtensionField::init
 struct ExtensionFieldPoly
 {
 	NTL::GF2EX rep;
@@ -84,7 +82,6 @@ struct ExtensionFieldPoly
 // Helper functions
 struct Helpers
 {
-	// TODO check
 	static NTL::vec_GF2 intToVec(int value);
 	static void setAlphas(NTL::vec_GF2E &vec, long p);
 	static NTL::vec_GF2 gf2eToVec(const NTL::GF2E &v);
