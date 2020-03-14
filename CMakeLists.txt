@@ -13,8 +13,8 @@ configure_file(MQAnalyzerConfig.h.in MQAnalyzerConfig.h)
 
 # add our libraries
 add_subdirectory(converter)
-add_subdirectory(polylib)
 add_subdirectory(io)
+add_subdirectory(polylib)
 
 # add the executable
 add_executable(MQAnalyzer main.cpp)
