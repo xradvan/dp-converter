@@ -1,3 +1,12 @@
+/**
+ * @file Converter.h
+ * @author Bc. Peter Radvan
+ * @brief Main converter class
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
 #pragma once
 
 #include "../io/InputInterface.h"

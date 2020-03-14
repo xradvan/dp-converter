@@ -1,3 +1,13 @@
+/**
+ *@file ObserverInput.h
+ *@author Bc. Peter Radvan
+ *@brief Gets data from ObservableOutput.
+ *@warning Must be connected via subscribe()
+ *@version 0.1
+ *
+ *@copyright Copyright (c) 2020
+ *
+ */
 #pragma once
 
 #include "InputInterface.h"

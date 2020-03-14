@@ -11,3 +11,6 @@
 *.cxxflags
 *.files
 *.includes
+
+# Ignore auto-generated docs
+docs/html/

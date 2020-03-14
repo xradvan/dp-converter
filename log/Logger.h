@@ -1,3 +1,12 @@
+/**
+ *@file Logger.h
+ *@author Bc. Peter Radvan
+ *@brief Logger functions
+ *@version 0.1
+ *
+ *@copyright Copyright (c) 2020
+ *
+ */
 #pragma once
 
 #include <iostream>

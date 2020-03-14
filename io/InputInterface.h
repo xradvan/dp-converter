@@ -1,3 +1,12 @@
+/**
+ *@file InputInterface.h
+ *@author Bc. Peter Radvan
+ *@brief Input interface
+ *@version 0.1
+ *
+ *@copyright Copyright (c) 2020
+ *
+ */
 #pragma once
 
 #include "../polylib/PolyLib.h"

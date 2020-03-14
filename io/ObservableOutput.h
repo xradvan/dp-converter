@@ -1,3 +1,12 @@
+/**
+ *@file ObservableOutput.h
+ *@author Bc. Peter Radvan
+ *@brief ObservableOutput passes the outuput to ObserverInput
+ *@version 0.1
+ *
+ *@copyright Copyright (c) 2020
+ *
+ */
 #pragma once
 
 #include "OutputInterface.h"
