@@ -4,7 +4,7 @@
 
 void RawOutput::putBasePolySet(const BasePolySet &s)
 {
-	PRINT("\nBasePolySet:");
+	INFO("BasePolySet:");
 	for (auto &p : s.polynomials) {
 		std::cout << p << std::endl;
 	}
@@ -12,6 +12,6 @@ void RawOutput::putBasePolySet(const BasePolySet &s)
 
 void RawOutput::putExtensionFieldPoly(const ExtensionFieldPoly &p)
 {
-	PRINT("\nExtensionFieldPoly:");
+	INFO("ExtensionFieldPoly:");
 	std::cout << p.rep << std::endl;
 }

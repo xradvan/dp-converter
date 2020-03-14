@@ -14,6 +14,7 @@ configure_file(MQAnalyzerConfig.h.in MQAnalyzerConfig.h)
 # add our libraries
 add_subdirectory(converter)
 add_subdirectory(io)
+add_subdirectory(log)
 add_subdirectory(polylib)
 
 # add the executable
@@ -33,6 +34,7 @@ target_link_libraries(
 	# our libs
 	Converter
 	IO
+	Logger
 	PolyLib
 
 	# NTL
@@ -48,5 +50,6 @@ target_include_directories(
 	# our libs
 	"${PROJECT_SOURCE_DIR}/converter"
 	"${PROJECT_SOURCE_DIR}/io"
+	"${PROJECT_SOURCE_DIR}/log"
 	"${PROJECT_SOURCE_DIR}/polylib"
 )
