@@ -15,7 +15,7 @@ void ExtensionField::init(int degree)
 {
 	assert(degree >= MIN_DEGREE);
 
-	PRINT("Extension field of degree: " << degree);
+	INFO("Extension field of degree: " << degree);
 	m_degree = degree;
 
 	PrimitivePoly p = PrimitivePolyFactory::createPolyOfDegree(m_degree);

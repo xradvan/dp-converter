@@ -4,6 +4,7 @@
 #include "io/ObserverInput.h"
 #include "io/ObservableOutput.h"
 #include "polylib/PolyLib.h"
+#include "log/Logger.h"
 
 #include <memory>
 
@@ -26,6 +27,8 @@ int main()
 	converter.setOutput(output1);
 	converter.toBasePolySet();
 
+	PRINT("");
+	INFO("Running backward conversion");
 	// Conversion 2 - revert
 	converter.setInput(input2);
 	converter.setOutput(output2);

@@ -10,8 +10,6 @@ using namespace NTL;
 
 ExtensionFieldPoly ToExtendedAlgrotihm1::convert(const BasePolySet &toConvert)
 {
-	INFO("Conversion to extension field polynomial started");
-
 	int degree = ExtensionField::instance().degree();
 	int numTerms = degree + ((degree * (degree - 1)) / 2) + 1;
 
