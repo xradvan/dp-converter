@@ -111,3 +111,46 @@ void Helpers::setAlphas(NTL::vec_GF2E &vec, long p)
 		vec.append(temp);
 	}
 }
+
+NTL::vec_GF2 Helpers::gf2eToVec(const NTL::GF2E &v)
+{
+	NTL::GF2E u(v);
+	NTL::vec_GF2 result;
+	int degree = ExtensionField::instance().degree();
+	result.SetLength(degree);
+
+	for (int i = 0; i < degree; i++) {
+		result[i] = u.LoopHole()[i];
+	}
+	return result;
+}
+
+NTL::vec_GF2 Helpers::eval(const BasePolySet &poly, const NTL::vec_GF2 &value)
+{
+	BasePolySet workPoly(poly);
+	int degree = ExtensionField::instance().degree();
+	NTL::vec_GF2 result;
+	result.SetLength(degree);
+
+	for (int i = 0; i < degree; i++)
+		for (int j = 0; j < degree; j++)
+			if (value[j] == 0) {
+				workPoly.polynomials[i].linear[j] = 0;
+
+				for (int k = 0; k < degree; k++) {
+					workPoly.polynomials[i].quadratic[j][k] = 0;
+					workPoly.polynomials[i].quadratic[k][j] = 0;
+				}
+			}
+
+	for (int i = 0; i < degree; i++) {
+		result[i] += workPoly.polynomials[i].constant;
+		for (int j = 0; j < degree; j++) {
+			result[i] += workPoly.polynomials[i].linear[j];
+			for (int k = 0; k < degree; k++)
+				result[i] += workPoly.polynomials[i].quadratic[j][k];
+		}
+	}
+
+	return result;
+}

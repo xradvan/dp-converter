@@ -49,4 +49,7 @@ void Converter::toExtensionFieldPoly()
 {
 	BasePolySet toConvert = m_input->getBasePolySet();
 	m_output->putBasePolySet(toConvert);
+
+	ExtensionFieldPoly result = m_toExtendedAlgorithm->convert(toConvert);
+	m_output->putExtensionFieldPoly(result);
 }

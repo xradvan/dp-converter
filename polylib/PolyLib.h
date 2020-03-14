@@ -87,4 +87,6 @@ struct Helpers
 	// TODO check
 	static NTL::vec_GF2 intToVec(int value);
 	static void setAlphas(NTL::vec_GF2E &vec, long p);
+	static NTL::vec_GF2 gf2eToVec(const NTL::GF2E &v);
+	static NTL::vec_GF2 eval(const BasePolySet &poly, const NTL::vec_GF2 &value);
 };
