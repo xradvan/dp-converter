@@ -9,7 +9,7 @@
 
 int main()
 {
-	int degree = 4;
+	int degree = 5;
 	ExtensionField::instance().init(degree);
 	Converter converter;
 

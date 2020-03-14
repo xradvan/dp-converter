@@ -14,9 +14,16 @@ ExtensionFieldPoly MockInput::getExtensionFieldPoly()
 {
 	ExtensionFieldPoly result;
 	int degree = ExtensionField::instance().degree();
-	if (degree == 3) {
+	switch (degree)
+	{
+	case 2:
+		result.rep = GF2EX(INIT_MONO, 2);
+		break;
+	case 3:
 		result.rep = GF2EX(INIT_MONO, 3);
-	} else {
+		break;
+	case 4:
+	{
 		GF2E c5;
 		c5.LoopHole().SetLength(4);
 		c5.LoopHole()[0] = 1;
@@ -48,6 +55,14 @@ ExtensionFieldPoly MockInput::getExtensionFieldPoly()
 		SetCoeff(gf2ex_p, 4, c4);
 		SetCoeff(gf2ex_p, 5, c5);
 		result.rep = gf2ex_p;
+	}
+		break;
+
+	case 5:
+		result.rep = GF2EX(INIT_MONO, 5);
+		break;
+	default:
+		break;
 	}
 	return result;
 }
