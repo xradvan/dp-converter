@@ -12,7 +12,7 @@ This project uses CMake as a build system:
 ## Build the docs
 Doxygen is used to auto-generate docs from the source code. Further info at http://www.doxygen.nl/.
 1. Go to docs directory
-2. Run doxygen
+2. Type "doxygen"
 3. Open docs/html/index.html in your favourite web browser
 
 ## Dependencies
