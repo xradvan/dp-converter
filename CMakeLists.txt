@@ -18,7 +18,7 @@ add_subdirectory(log)
 add_subdirectory(polylib)
 
 # add the executable
-add_executable(MQAnalyzer main.cpp)
+add_executable(MQAnalyzer main.cpp Tests.cpp)
 
 # check for NTL
 message(STATUS "Detecting NTL library")

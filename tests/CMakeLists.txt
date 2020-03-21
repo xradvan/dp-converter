@@ -1,1 +1,0 @@
-add_library(Tests Tests.cpp)
