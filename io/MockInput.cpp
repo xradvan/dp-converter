@@ -7,7 +7,22 @@ using namespace NTL;
 
 BasePolySet MockInput::getBasePolySet()
 {
+	BasePolySet result;
+	int degree = ExtensionField::instance().degree();
+	if (degree == 3) {
+		result.polynomials[0].quadratic[0][0] = 1;
+		result.polynomials[0].quadratic[1][1] = 1;
+		result.polynomials[0].quadratic[1][2] = 1;
+		result.polynomials[0].quadratic[2][2] = 1;
 
+		result.polynomials[1].quadratic[0][1] = 1;
+		result.polynomials[1].quadratic[0][2] = 1;
+		result.polynomials[1].quadratic[1][1] = 1;
+
+		result.polynomials[2].quadratic[0][1] = 1;
+		result.polynomials[2].quadratic[2][2] = 1;
+	}
+	return result;
 }
 
 ExtensionFieldPoly MockInput::getExtensionFieldPoly()
