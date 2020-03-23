@@ -1,6 +1,7 @@
 #include "Tests.h"
 
 #include "converter/Converter.h"
+#include "converter/ToExtendedAlgorithm2.h"
 #include "io/MockInput.h"
 #include "io/RawOutput.h"
 #include "io/ObserverInput.h"
@@ -102,22 +103,8 @@ void Tests::test3()
 	Converter converter;
 
 	// IO
-	auto input1 = std::make_shared<MockInput>();
-	auto output1 = std::make_shared<ObservableOutput>();
-
-	auto input2 = std::make_shared<ObserverInput>();
-	output1->subscribe(input2.get());
-	auto output2 = std::make_shared<RawOutput>();
-
-	// Conversion 1
-	converter.setInput(input1);
-	converter.setOutput(output1);
+	converter.setInput(std::make_shared<MockInput>());
+	converter.setOutput(std::make_shared<RawOutput>());
+	converter.setToExtendedAlgorithm(std::make_shared<ToExtendedAlgrotihm2>());
 	converter.toExtensionFieldPoly();
-
-	PRINT("");
-	INFO("Running backward conversion");
-	// Conversion 2 - revert
-	converter.setInput(input2);
-	converter.setOutput(output2);
-	converter.toBasePolySet();
 }
