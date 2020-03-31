@@ -68,6 +68,20 @@ BasePoly::BasePoly()
 	linear.SetLength(degree);
 }
 
+bool BasePoly::operator==(const BasePoly &p)
+{
+	return this->constant == p.constant
+		&& this->linear == p.linear
+		&& this->quadratic == p.quadratic;
+}
+
+bool BasePoly::operator!=(const BasePoly &p)
+{
+	return this->constant != p.constant
+		|| this->linear != p.linear
+		|| this->quadratic != p.quadratic;
+}
+
 std::ostream &operator<<(std::ostream &os, const BasePoly &p)
 {
 	int degree = ExtensionField::instance().degree();
@@ -84,6 +98,36 @@ BasePolySet::BasePolySet()
 {
 	int degree = ExtensionField::instance().degree();
 	polynomials.SetLength(degree);
+}
+
+bool BasePolySet::operator==(const BasePolySet &s)
+{
+	int degree = ExtensionField::instance().degree();
+	for (int i = 0; i < degree; i++) {
+		if (this->polynomials[i] != s.polynomials[i])
+			return false;
+	}
+	return true;
+}
+
+bool BasePolySet::operator!=(const BasePolySet &s)
+{
+	int degree = ExtensionField::instance().degree();
+	for (int i = 0; i < degree; i++) {
+		if (this->polynomials[i] == s.polynomials[i])
+			return false;
+	}
+	return true;
+}
+
+bool ExtensionFieldPoly::operator==(const ExtensionFieldPoly &p)
+{
+	return this->rep == p.rep;
+}
+
+bool ExtensionFieldPoly::operator!=(const ExtensionFieldPoly &p)
+{
+	return this->rep != p.rep;
 }
 
 NTL::vec_GF2 Helpers::intToVec(int value)

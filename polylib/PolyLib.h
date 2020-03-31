@@ -90,6 +90,8 @@ struct BasePoly
 	NTL::GF2 constant;
 
 	BasePoly();
+	bool operator==(const BasePoly &p);
+	bool operator!=(const BasePoly &p);
 	friend std::ostream &operator<<(std::ostream &os, const BasePoly &p);
 };
 
@@ -100,7 +102,10 @@ struct BasePoly
 struct BasePolySet
 {
 	NTL::Vec<BasePoly> polynomials;
+
 	BasePolySet();
+	bool operator==(const BasePolySet &s);
+	bool operator!=(const BasePolySet &s);
 };
 
 /**
@@ -110,6 +115,8 @@ struct BasePolySet
 struct ExtensionFieldPoly
 {
 	NTL::GF2EX rep;
+	bool operator==(const ExtensionFieldPoly &p);
+	bool operator!=(const ExtensionFieldPoly &p);
 };
 
 /**
