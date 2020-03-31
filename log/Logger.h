@@ -36,8 +36,14 @@ private:
 
 };
 
+const std::string RedColor("\033[0;31m");
+const std::string GreenColor("\033[1;32m");
+
 #define PRINT(x) std::cout << x << std::endl
 
 #define INFO(x) std::cout <<  "INFO  " << x << std::endl
 #define INFO_POLY(x) Logger::instance().log(x)
 #define ERROR(x) std::cout << "ERROR " << x << std::endl
+
+#define OK(x) std::cout << GreenColor << "OK " << x << std::endl
+#define FAIL(x) std::cout << GreenColor << "FAIL " << x << std::endl
