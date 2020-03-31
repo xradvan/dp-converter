@@ -3,6 +3,7 @@
 #include "converter/Converter.h"
 #include "converter/ToExtendedAlgorithm2.h"
 #include "io/MockInput.h"
+#include "io/ComparableOutput.h"
 #include "io/RawOutput.h"
 #include "io/ObserverInput.h"
 #include "io/ObservableOutput.h"
@@ -103,8 +104,17 @@ void Tests::test3()
 	Converter converter;
 
 	// IO
-	converter.setInput(std::make_shared<MockInput>());
-	converter.setOutput(std::make_shared<RawOutput>());
+	auto input = std::make_shared<MockInput>();
+	auto output = std::make_shared<ComparableOutput>();
+	output->setSource(input);
+
+	converter.setInput(input);
+	converter.setOutput(output);
 	converter.setToExtendedAlgorithm(std::make_shared<ToExtendedAlgrotihm2>());
-	converter.toExtensionFieldPoly();
+	converter.toBasePolySet();
+	if (output->matchBasePolySet()) {
+		OK("");
+	} else {
+		FAIL("");
+	}
 }
