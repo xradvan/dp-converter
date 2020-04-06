@@ -16,6 +16,7 @@ add_subdirectory(converter)
 add_subdirectory(io)
 add_subdirectory(log)
 add_subdirectory(polylib)
+add_subdirectory(ui)
 
 # add the executable
 add_executable(MQAnalyzer main.cpp Tests.cpp)
@@ -36,6 +37,7 @@ target_link_libraries(
 	IO
 	Logger
 	PolyLib
+	UI
 
 	# NTL
 	${NTL_LIB} m gmp pthread
@@ -52,4 +54,5 @@ target_include_directories(
 	"${PROJECT_SOURCE_DIR}/io"
 	"${PROJECT_SOURCE_DIR}/log"
 	"${PROJECT_SOURCE_DIR}/polylib"
+	"${PROJECT_SOURCE_DIR}/ui"
 )
