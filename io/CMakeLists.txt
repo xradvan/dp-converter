@@ -3,6 +3,7 @@ add_library(IO
 	DefaultInput.cpp
 	ObserverInput.cpp
 	MockInput.cpp
+	MQInput.cpp
 
 	# output
 	DefaultOutput.cpp
