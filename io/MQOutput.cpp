@@ -1,30 +1,33 @@
 #include "MQOutput.h"
+#include "../err/MQAException.h"
+#include "../log/Logger.h"
+
+#include <fstream>
+
+MQOutput::MQOutput(const Config &c)
+	: m_config(c) {}
 
 void MQOutput::putBasePolySet(const BasePolySet &s)
 {
+	INFO("Writing BasePolySet in MQ format to file " << m_config.output);
+	std::ofstream os{m_config.output};
+	if (!os.is_open()) {
+		throw MQAException(std::string{"Could not create the output file: "} + m_config.output);
+	}
 	int degree = ExtensionField::instance().degree();
-	std::cout << std::endl;
-	std::cout << "Galois Field : GF(2)" << std::endl;
-	std::cout << "Number of variables (n) : " << degree << std::endl;
-	std::cout << "Number of equations (m) : " << degree << std::endl;
-	std::cout << "Seed : 0" << std::endl;
-	std::cout << "Order : Graded reverse lexicographic order" << std::endl;
-	std::cout << "******************************************" << std::endl;
-
 	for (int i = 0; i < degree; i++) {
 		for (int j = 0; j < degree; j++)
 			for (int k = 0; k <= j; k++)
-				std::cout << s.polynomials[i].quadratic[k][j] << " ";
+				os << s.polynomials[i].quadratic[k][j] << " ";
 
 		for (int j = 0; j < degree; j++)
-			std::cout << s.polynomials[i].linear[j] << " ";
+			os << s.polynomials[i].linear[j] << " ";
 
-		std::cout << s.polynomials[i].constant << ";" << std::endl;
+		os << s.polynomials[i].constant << " ;" << std::endl;
 	}
-	std::cout << std::endl;
 }
 
 void MQOutput::putExtensionFieldPoly(const ExtensionFieldPoly &p)
 {
-	// NOT IMPLEMENTED
+	throw MQAException("Writing ExtensionFieldPoly in MQ format is not supported");
 }

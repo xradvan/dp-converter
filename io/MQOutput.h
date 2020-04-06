@@ -11,10 +11,16 @@
 #pragma once
 
 #include "OutputInterface.h"
+#include "../app/Config.h"
 
 class MQOutput : public OutputInterface
 {
 public:
+	MQOutput(const Config &c);
+
 	void putBasePolySet(const BasePolySet &s) override;
 	void putExtensionFieldPoly(const ExtensionFieldPoly &p) override;
+
+private:
+	Config m_config;
 };
