@@ -40,21 +40,17 @@ void Converter::setToExtendedAlgorithm(std::shared_ptr<ToExtendedAlgInterface> a
 void Converter::toBasePolySet()
 {
 	ExtensionFieldPoly toConvert = m_input->getExtensionFieldPoly();
-	INFO("Conveter input:");
-	INFO_POLY(toConvert);
 	INFO("Conversion to base field polynomial started");
 	BasePolySet result = m_toBaseAlgorithm->convert(toConvert);
-	INFO("Producing results");
+	INFO("Conversion finnished");
 	m_output->putBasePolySet(result);
 }
 
 void Converter::toExtensionFieldPoly()
 {
 	BasePolySet toConvert = m_input->getBasePolySet();
-	INFO("Conveter input:");
-	INFO_POLY(toConvert);
 	INFO("Conversion to extension field polynomial started");
 	ExtensionFieldPoly result = m_toExtendedAlgorithm->convert(toConvert);
-	INFO("Producing results");
+	INFO("Conversion finnished");
 	m_output->putExtensionFieldPoly(result);
 }
