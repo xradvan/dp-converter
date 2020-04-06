@@ -12,6 +12,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 configure_file(MQAnalyzerConfig.h.in MQAnalyzerConfig.h)
 
 # add our libraries
+add_subdirectory(analyzer)
+add_subdirectory(app)
 add_subdirectory(converter)
 add_subdirectory(io)
 add_subdirectory(log)
@@ -33,6 +35,9 @@ target_link_libraries(
 	MQAnalyzer PUBLIC
 
 	# our libs
+	AppManager
+	Analyzer
+
 	Converter
 	IO
 	Logger
@@ -50,6 +55,8 @@ target_include_directories(
 	"${PROJECT_BINARY_DIR}"
 
 	# our libs
+	"${PROJECT_SOURCE_DIR}/analyzer"
+	"${PROJECT_SOURCE_DIR}/app"
 	"${PROJECT_SOURCE_DIR}/converter"
 	"${PROJECT_SOURCE_DIR}/io"
 	"${PROJECT_SOURCE_DIR}/log"

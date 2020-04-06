@@ -2,6 +2,8 @@
 
 struct Tests
 {
+	static void test0();
+
 	/**
 	 *@brief Simple test
 	 *
