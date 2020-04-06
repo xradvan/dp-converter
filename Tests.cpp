@@ -2,7 +2,11 @@
 
 #include "converter/Converter.h"
 #include "converter/ToExtendedAlgorithm2.h"
+#include "io/DefaultInput.h"
+#include "io/DefaultOutput.h"
 #include "io/MockInput.h"
+#include "io/MQInput.h"
+#include "io/MQOutput.h"
 #include "io/ComparableOutput.h"
 #include "io/RawOutput.h"
 #include "io/ObserverInput.h"
@@ -10,7 +14,26 @@
 #include "log/Logger.h"
 #include "polylib/PolyLib.h"
 
+#include "app/Config.h"
+
 #include <memory>
+
+void Tests::test0()
+{
+	Config config;
+	config.input = "../tasks/test";
+	config.inputFormat = "default";
+	config.output = "../tasks/test";
+	config.outputFormat = "default";
+	config.degree = 4;
+
+	ExtensionField::instance().init(config.degree);
+	Converter converter;
+	converter.setInput(std::make_shared<MockInput>());
+	converter.setOutput(std::make_shared<DefaultOutput>(config));
+	converter.toExtensionFieldPoly();
+	// converter.toBasePolySet();
+}
 
 void Tests::test1()
 {
@@ -112,9 +135,4 @@ void Tests::test3()
 	converter.setOutput(output);
 	converter.setToExtendedAlgorithm(std::make_shared<ToExtendedAlgrotihm2>());
 	converter.toBasePolySet();
-	if (output->matchBasePolySet()) {
-		OK("");
-	} else {
-		FAIL("");
-	}
 }
