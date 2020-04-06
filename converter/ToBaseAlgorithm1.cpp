@@ -1,4 +1,5 @@
 #include "ToBaseAlgorithm1.h"
+#include "../err/MQAException.h"
 
 #include <NTL/GF2E.h>
 #include <NTL/vec_GF2E.h>
@@ -29,9 +30,8 @@ BasePolySet ToBaseAlgorithm1::convert(const ExtensionFieldPoly &toConvert)
 
 		if (!IsZero(term)) {
 			PolyPowers p = PolyPowers::getPowers(i);
-			// Term could not be processed, so return
 			if (p.p1 == PolyPowers::NOT_SET && p.p2 == PolyPowers::NOT_SET) {
-				continue;
+				throw MQAException("Term could not be processed converted");
 			}
 
 			vec_GF2E vec_gf2e_tmp1;
