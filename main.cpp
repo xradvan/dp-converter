@@ -7,9 +7,25 @@
  *@copyright Copyright (c) 2020
  *
  */
+#include "app/AppManager.h"
+#include "log/Logger.h"
 #include "Tests.h"
 
-int main()
+// Uncomment to debug
+// #define DEBUG
+
+int main(int argc, const char *argv[])
 {
-	Tests::test3();
+#ifdef DEBUG
+	Tests::test0();
+#else
+	if (argc == 1) {
+		ERROR("Wrong input arguments");
+		return EXIT_FAILURE;
+	}
+
+	AppManager manager;
+	manager.run(argv[1]);
+	return manager.exitCode();
+#endif
 }
