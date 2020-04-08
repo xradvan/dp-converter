@@ -1,17 +1,44 @@
 #include "Analyzer.h"
 #include "Cases.h"
+#include "../log/Logger.h"
 
-#include <thread>
+#include <cmath>
+#include <NTL/mat_GF2E.h>
 
-Result CasesFunc::EF_QuadFormRank(const Config &c)
+Result Cases::EF_QuadFormRank(const Config &c, const Source &s)
 {
+	INFO("Starting case: EF_QuadFormRank");
+	auto toProcess = s.extensionFieldPoly();
+	int degree = ExtensionField::instance().degree();
 
-	std::this_thread::sleep_for(std::chrono::seconds(2));
-	return {"EF_QuadFormRank", 1};
+	// Create matrix
+	int dim = ceil(sqrt(toProcess.rep.rep.length()));
+	auto p = ExtensionField::instance().polynomial().rep;
+	NTL::GF2E::init(p);
+
+	NTL::mat_GF2E mat_GF2E_A;
+	mat_GF2E_A.SetDims(dim, dim);
+	int k = 0;
+	for (int i = 0; i < dim; i++) {
+		for (int j = 0; j < dim; j++) {
+			mat_GF2E_A[i][j] = toProcess.rep.rep[k++];
+		}
+	}
+	
+	SINGLE_VAL_T result;
+	result = gauss(mat_GF2E_A);
+	return {"EF_QuadFormRank", result};
 }
 
-Result CasesFunc::BF_QuadTermRank(const Config &c)
+Result Cases::BF_QuadTermRank(const Config &c, const Source &s)
 {
-	std::this_thread::sleep_for(std::chrono::seconds(1));
-	return {"BF_QuadTermRank", 2};
+	INFO("Starting case: BF_QuadTermRank");
+	auto toProcess = s.basePolySet();
+	int degree = ExtensionField::instance().degree();
+
+	MULTI_VAL_T result;
+	for (int i = 0; i < degree; i++) {
+		result.push_back(gauss(toProcess.polynomials[i].quadratic));
+	}
+	return {"BF_QuadTermRank", result};
 }

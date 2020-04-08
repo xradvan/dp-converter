@@ -7,6 +7,11 @@
 Analyzer::Analyzer(const Config &c)
 	: m_config(c) {}
 
+void Analyzer::setSource(const Source &s)
+{
+	m_source = s;
+}
+
 void Analyzer::setUI(std::shared_ptr<UIInterface> ui)
 {
 	if (ui) {
@@ -18,9 +23,9 @@ void Analyzer::addCase(const std::string &c)
 {
 	INFO("Adding case " << c);
 	if (c == C_CASES_EF_QuadFormRank)
-		m_cases.push_back(std::async(std::launch::async, CasesFunc::EF_QuadFormRank, m_config));
+		m_cases.push_back(std::async(std::launch::async, Cases::EF_QuadFormRank, m_config, m_source));
 	else if (c == C_CASES_BF_QuadTermRank)
-		m_cases.push_back(std::async(std::launch::async, CasesFunc::BF_QuadTermRank, m_config));
+		m_cases.push_back(std::async(std::launch::async, Cases::BF_QuadTermRank, m_config, m_source));
 	else
 		throw MQAException(std::string{"Unknown analyzer case: "} + c);
 }

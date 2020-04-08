@@ -10,10 +10,11 @@
 #pragma once
 
 #include "Result.h"
+#include "Source.h"
 #include "../app/Config.h"
 
-struct CasesFunc
+struct Cases
 {
-	static Result EF_QuadFormRank(const Config &c);
-	static Result BF_QuadTermRank(const Config &c);
+	static Result EF_QuadFormRank(const Config &c, const Source &s);
+	static Result BF_QuadTermRank(const Config &c, const Source &s);
 };

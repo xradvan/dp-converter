@@ -11,9 +11,8 @@
 
 #include "Cases.h"
 #include "Result.h"
+#include "Source.h"
 #include "../app/Config.h"
-#include "../io/InputInterface.h"
-#include "../io/OutputInterface.h"
 #include "../ui/UIInterface.h"
 
 #include <future>
@@ -25,6 +24,8 @@ class Analyzer
 {
 public:
 	Analyzer(const Config &c);
+
+	void setSource(const Source &s);
 	void setUI(std::shared_ptr<UIInterface> ui);
 
 	void addCase(const std::string &c);
@@ -32,6 +33,7 @@ public:
 
 private:
 	Config m_config;
+	Source m_source;
 	std::vector<std::future<Result> > m_cases;
 	std::shared_ptr<UIInterface> m_ui;
 };

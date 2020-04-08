@@ -17,6 +17,7 @@ struct Config
 	std::string description;
 	int degree;
 	std::string inputFormat;
+	std::string inputPolyType;
 	std::string input;
 	std::string output;
 	std::string task;
@@ -31,6 +32,10 @@ struct Config
 // Format
 #define C_FORMAT_DEFAULT "default"
 #define C_FORMAT_MQ "MQ"
+
+// Polynomial type
+#define C_POLY_TYPE_BFP "BFP"
+#define C_POLY_TYPE_EFP "EFP"
 
 // Task
 #define C_TASK_CONVERT "convert"

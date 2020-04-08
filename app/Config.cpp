@@ -28,6 +28,8 @@ void Config::load(const std::string &file)
 			this->degree = std::stoi(value);
 		else if (param == "input_format")
 			this->inputFormat = value;
+		else if (param == "input_poly_type")
+			this->inputPolyType = value;
 		else if (param == "input")
 			this->input = value;
 		else if (param == "output")
