@@ -10,9 +10,14 @@
 #pragma once
 
 #include <string>
+#include <variant>
+#include <vector>
+
+#define SINGLE_VAL_T int
+#define MULTI_VAL_T std::vector<int>
 
 struct Result
 {
 	std::string name;
-	int value;
+	std::variant<SINGLE_VAL_T, MULTI_VAL_T > value;
 };

@@ -2,6 +2,7 @@
 #include "../err/MQAException.h"
 #include "../log/Logger.h"
 
+#include <algorithm>
 #include <fstream>
 #include <string>
 
@@ -33,6 +34,15 @@ void BasicUI::display(const Result &r)
 	if (!os.is_open()) {
 		throw MQAException(std::string{"Could not append results to the output file: "} + m_config.output);
 	}
+
 	os << "Case  : " << r.name << "\n";
-	os << "Result: " << r.value << "\n\n";
+	os << "Result: ";
+	if (std::holds_alternative<SINGLE_VAL_T>(r.value)) {
+		os << std::get<SINGLE_VAL_T>(r.value) << "\n\n";
+	}
+	else if (std::holds_alternative<MULTI_VAL_T>(r.value)) {
+		auto val = std::get<MULTI_VAL_T>(r.value);
+		std::for_each(val.begin(), val.end(), [&](int i) { os << i << " "; });
+		os << "\n\n";
+	}
 }
