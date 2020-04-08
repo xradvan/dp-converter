@@ -19,6 +19,7 @@ void ExtensionField::init(int degree)
 	m_degree = degree;
 
 	PrimitivePoly p = PrimitivePolyFactory::createPolyOfDegree(m_degree);
+	m_polynomial = p;
 	NTL::GF2E::init(p.rep);
 }
 
@@ -34,6 +35,11 @@ int ExtensionField::degree() const
 {
 	assert(m_degree >= MIN_DEGREE);
 	return m_degree;
+}
+
+PrimitivePoly ExtensionField::polynomial() const
+{
+	return m_polynomial;
 }
 
 PolyPowers::PolyPowers() : p1(NOT_SET), p2(NOT_SET) {}
