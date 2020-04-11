@@ -1,18 +1,18 @@
 #include "DefaultInput.h"
 #include "../err/MQAException.h"
-#include "../log/Logger.h"
 
 #include <fstream>
 
-DefaultInput::DefaultInput(const Config &c)
-	: m_config(c) {}
+void DefaultInput::setPath(const std::string &path)
+{
+	m_path = path;
+}
 
 BasePolySet DefaultInput::getBasePolySet()
 {
-	INFO("Reading BasePolySet in default format from file " << m_config.input);
-	std::ifstream is{m_config.input};
+	std::ifstream is{m_path};
 	if (!is.is_open()) {
-		throw MQAException(std::string{"Could not open the file: "} + m_config.input);
+		throw MQAException(std::string{"Could not open the file: "} + m_path);
 	}
 
 	int degree = ExtensionField::instance().degree();
@@ -27,10 +27,9 @@ BasePolySet DefaultInput::getBasePolySet()
 
 ExtensionFieldPoly DefaultInput::getExtensionFieldPoly()
 {
-	INFO("Reading ExtensionFieldPoly in default format from file " << m_config.input);
-	std::ifstream is{m_config.input};
+	std::ifstream is{m_path};
 	if (!is.is_open()) {
-		throw MQAException(std::string{"Could not open the file: "} + m_config.input);
+		throw MQAException(std::string{"Could not open the file: "} + m_path);
 	}
 	ExtensionFieldPoly result;
 	is >> result.rep;

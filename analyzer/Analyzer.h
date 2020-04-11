@@ -9,13 +9,11 @@
  */
 #pragma once
 
-#include "Cases.h"
 #include "Result.h"
 #include "Source.h"
 #include "../app/Config.h"
 #include "../ui/UIInterface.h"
 
-#include <future>
 #include <memory>
 #include <string>
 #include <vector>
@@ -25,15 +23,20 @@ class Analyzer
 public:
 	Analyzer(const Config &c);
 
-	void setSource(const Source &s);
+	void setSources(const Sources &s);
 	void setUI(std::shared_ptr<UIInterface> ui);
 
-	void addCase(const std::string &c);
 	void run();
+	void processResults();
+
+private:
+	void addCase(const std::string &fileName, const std::string &caseName, const Source &source);
 
 private:
 	Config m_config;
-	Source m_source;
-	std::vector<std::future<Result> > m_cases;
+
+	Sources m_sources;
+	Results m_results;
+
 	std::shared_ptr<UIInterface> m_ui;
 };

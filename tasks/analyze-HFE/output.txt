@@ -1,0 +1,16 @@
+MQ Analyzer result
+
+Name: HFE Trapdoor Analysis
+Description: Analyze HFE trapdoor
+Date: 09/04/2020 21:20:51
+
+Extension field degree: 10
+Input format: default
+Input file: ../tasks/analyze-HFE/HFE_sk_polynom.txt
+
+Case  : EF_QuadFormRank
+Result: 4 
+
+Case  : EF_AfterConversion
+Result: 8 9 6 8 9 8 8 8 7 7 
+

@@ -1,19 +1,19 @@
 #include "MQInput.h"
 #include "../err/MQAException.h"
-#include "../log/Logger.h"
 
 #include <fstream>
 #include <sstream>
 
-MQInput::MQInput(const Config &c)
-	: m_config(c) {}
+void MQInput::setPath(const std::string &path)
+{
+	m_path = path;
+}
 
 BasePolySet MQInput::getBasePolySet()
 {
-	INFO("Reading BasePolySet in MQ format from file " << m_config.input);
-	std::ifstream is{m_config.input};
+	std::ifstream is{m_path};
 	if (!is.is_open()) {
-		throw MQAException(std::string{"Could not open the file: "} + m_config.input);
+		throw MQAException(std::string{"Could not open the file: "} + m_path);
 	}
 
 	BasePolySet result;

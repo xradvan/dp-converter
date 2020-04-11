@@ -9,17 +9,16 @@
  */
 #pragma once
 
-#include "InputInterface.h"
-#include "../app/Config.h"
+#include "FileInputInterface.h"
 
-class DefaultInput : public InputInterface
+class DefaultInput : public FileInputInterface
 {
 public:
-	DefaultInput(const Config &c);
+	void setPath(const std::string &path) override;
 
 	BasePolySet getBasePolySet() override;
 	ExtensionFieldPoly getExtensionFieldPoly() override;
 
 private:
-	Config m_config;
+	std::string m_path;
 };

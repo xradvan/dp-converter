@@ -1,0 +1,35 @@
+==============================
+MQ Analyzer result
+==============================
+
+Name: MIA Analysis
+Description: Analyze MIA encryption scheme
+Date: 09/04/2020 21:20:51
+Extension field degree: 10
+
+==============================
+File: MIA_sk_polynom.txt
+Type: EFP
+Format: default
+Count: 10
+==============================
+Case: EF_rank
+Rank: 4
+
+Case: EF_BF_multi
+Min: 3 (inputs/1/MIA_sk_polynom.txt)
+Max: 7 (inputs/6/MIA_sk_polynom.txt)
+Avg: 5
+Std: 2
+
+==============================
+File: MIA_pk_MQ.txt
+Type: BPS
+Format: MQ
+Count: 10
+==============================
+Case: BF_multi
+Min: 5 (inputs/8/MIA_pk_MQ.txt)
+Max: 10 (inputs/1/MIA_pk_MQ.txt)
+Avg: 6
+Std: 3

@@ -2,18 +2,16 @@
 
 #include "../polylib/PolyLib.h"
 
-class Source
+#include <map>
+#include <string>
+#include <variant>
+#include <vector>
+
+struct Source
 {
-public:
-	Source() = default;
-
-	BasePolySet basePolySet() const;
-	ExtensionFieldPoly extensionFieldPoly() const;
-
-	void setBasePolySet(const BasePolySet &s);
-	void setExtensionFieldPoly(const ExtensionFieldPoly &p);
-
-private:
-	BasePolySet m_bps;
-	ExtensionFieldPoly m_efp;
+	std::string name;
+	std::variant<BasePolySet, ExtensionFieldPoly> value;
 };
+
+// File -> Sources
+using Sources = std::map<std::string, std::vector<Source>>;

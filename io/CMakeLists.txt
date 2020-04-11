@@ -6,9 +6,9 @@ add_library(IO
 	MQInput.cpp
 
 	# output
-	DefaultOutput.cpp
+	#DefaultOutput.cpp
 	ComparableOutput.cpp
-	MQOutput.cpp
+	#MQOutput.cpp
 	ObservableOutput.cpp
 	RawOutput.cpp
 )

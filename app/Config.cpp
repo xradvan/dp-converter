@@ -1,7 +1,9 @@
 #include "Config.h"
 #include "../err/MQAException.h"
+#include "../external/rapidjson/document.h"
 
 #include <fstream>
+#include <sstream>
 
 void Config::load(const std::string &file)
 {
@@ -10,39 +12,29 @@ void Config::load(const std::string &file)
 		throw MQAException{std::string{"Could not open configuration file: "} + file};
 	}
 
-	std::string str;
-	while (std::getline(is, str))
-	{
-		// skip empty lines and comments
-		if (str == "" || !str.find("#"))
-			continue;
+	std::stringstream buffer;
+	buffer << is.rdbuf();
 
-		auto param = str.substr(0, str.find('='));
-		auto value = str.substr(str.find('=') + 1, std::string::npos);
+	rapidjson::Document doc;
+	doc.Parse(buffer.str().c_str());
 
-		if (param == "name")
-			this->name = value;
-		else if (param == "description")
-			this->description = value;
-		else if (param == "degree")
-			this->degree = std::stoi(value);
-		else if (param == "input_format")
-			this->inputFormat = value;
-		else if (param == "input_poly_type")
-			this->inputPolyType = value;
-		else if (param == "input")
-			this->input = value;
-		else if (param == "output")
-			this->output = value;
-		else if (param == "task")
-			this->task = value;
-		else if (param == "output_format")
-			this->outputFormat = value;
-		else if (param == "convert_type")
-			this->convertType = value;
-		else if (param == "cases")
-			this->cases = value;
-		else
-			throw MQAException{std::string{"Could not parse parameter: "} + param};
+	this->name = doc["name"].GetString();
+	this->description = doc["description"].GetString();
+	this->degree = doc["degree"].GetInt();
+	this->task = doc["task"].GetString();
+	this->inputBaseDir = doc["input"]["input_base_dir"].GetString();
+	for (const auto &f : doc["input"]["files"].GetArray()) {
+		std::vector<std::string> fc;
+		for (const auto &c : f["cases"].GetArray()) {
+			fc.push_back(c.GetString());
+		}
+
+		this->files.push_back({
+			f["name"].GetString(),
+			f["type"].GetString(),
+			f["format"].GetString(),
+			fc
+		});
 	}
+	this->output = doc["output"].GetString();
 }

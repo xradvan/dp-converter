@@ -45,7 +45,7 @@ target_link_libraries(
 	UI
 
 	# NTL
-	${NTL_LIB} m gmp pthread
+	${NTL_LIB} m gmp pthread stdc++fs
 )
 
 # add the binary tree to the search path for include files

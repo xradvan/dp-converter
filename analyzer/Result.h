@@ -9,15 +9,17 @@
  */
 #pragma once
 
+#include <future>
+#include <map>
 #include <string>
 #include <variant>
 #include <vector>
 
-#define SINGLE_VAL_T int
-#define MULTI_VAL_T std::vector<int>
-
 struct Result
 {
-	std::string name;
-	std::variant<SINGLE_VAL_T, MULTI_VAL_T > value;
+	std::string file;
+	std::variant<int, std::vector<int>> value;
 };
+
+// File -> Case -> Results
+using Results = std::map<std::string, std::map<std::string, std::vector<std::future<Result> > > >;

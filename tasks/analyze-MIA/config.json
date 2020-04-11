@@ -1,0 +1,25 @@
+{
+	"name": "MIA Analysis",
+	"description": "Analyze MIA encryption scheme",
+	"degree": 3,
+	"task": "analyze",
+	"input":
+	{
+		"input_base_dir": "../tasks/analyze-MIA/inputs/",
+		"files": [
+			{
+				"name": "MIA_sk_polynom.txt",
+				"type": "EFP",
+				"format": "default",
+				"cases": ["EF_rank", "EF_BF_multi"]
+			},
+			{
+				"name": "MIA_pk_MQ.txt",
+				"type": "BFP",
+				"format": "MQ",
+				"cases": ["BF_multi", "BF_EF_rank"]
+			}
+		]
+	},
+	"output": "output.txt"
+}

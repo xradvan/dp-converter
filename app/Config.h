@@ -10,20 +10,25 @@
 #pragma once
 
 #include <string>
+#include <vector>
+
+struct File
+{
+	std::string name;
+	std::string type;
+	std::string format;
+	std::vector<std::string> cases;
+};
 
 struct Config
 {
 	std::string name;
 	std::string description;
 	int degree;
-	std::string inputFormat;
-	std::string inputPolyType;
-	std::string input;
-	std::string output;
 	std::string task;
-	std::string outputFormat;
-	std::string convertType;
-	std::string cases;
+	std::string inputBaseDir;
+	std::vector<File> files;
+	std::string output;
 
 	void load(const std::string &file);
 };
@@ -46,5 +51,7 @@ struct Config
 #define C_CONVERT_TO_EXT "to-extension"
 
 // Analysis cases
-#define C_CASES_EF_QuadFormRank	"EF_QuadFormRank"
-#define C_CASES_BF_QuadTermRank	"BF_QuadTermRank"
+#define C_CASES_EF_Rank		"EF_rank"
+#define C_CASES_EF_BF_multi	"EF_BF_multi"
+#define C_CASES_BF_multi	"BF_multi"
+#define C_CASES_BF_EF_rank	"BF_EF_rank"

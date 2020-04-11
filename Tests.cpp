@@ -20,19 +20,19 @@
 
 void Tests::test0()
 {
-	Config config;
-	config.input = "../tasks/test";
-	config.inputFormat = "default";
-	config.output = "../tasks/test";
-	config.outputFormat = "default";
-	config.degree = 4;
+	// Config config;
+	// config.input = "../tasks/test";
+	// config.inputFormat = "default";
+	// config.output = "../tasks/test";
+	// config.outputFormat = "default";
+	// config.degree = 4;
 
-	ExtensionField::instance().init(config.degree);
-	Converter converter;
-	converter.setInput(std::make_shared<MockInput>());
-	converter.setOutput(std::make_shared<DefaultOutput>(config));
-	converter.toExtensionFieldPoly();
-	// converter.toBasePolySet();
+	// ExtensionField::instance().init(config.degree);
+	// Converter converter;
+	// converter.setInput(std::make_shared<MockInput>());
+	// converter.setOutput(std::make_shared<DefaultOutput>(config));
+	// converter.toExtensionFieldPoly();
+	// // converter.toBasePolySet();
 }
 
 void Tests::test1()

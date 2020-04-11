@@ -15,6 +15,8 @@
 
 struct Cases
 {
-	static Result EF_QuadFormRank(const Config &c, const Source &s);
-	static Result BF_QuadTermRank(const Config &c, const Source &s);
+	static Result EF_rank(const Config &c, const Source &s);
+	static Result EF_BF_multi(const Config &c, const Source &s);
+	static Result BF_multi(const Config &c, const Source &s);
+	static Result BF_EF_rank(const Config &c, const Source &s);
 };

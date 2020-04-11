@@ -1,7 +1,7 @@
 /**
- *@file MQInput.h
+ *@file SourceInput.h
  *@author Bc. Peter Radvan
- *@brief MQ input class
+ *@brief Get input from Analyzer Source class
  *@version 0.1
  *
  *@copyright Copyright (c) 2020
@@ -9,16 +9,17 @@
  */
 #pragma once
 
-#include "FileInputInterface.h"
+#include "InputInterface.h"
+#include "../analyzer/Source.h"
 
-class MQInput : public FileInputInterface
+class SourceInput : public InputInterface
 {
 public:
-	void setPath(const std::string &path) override;
+	SourceInput(const Source &s);
 
 	BasePolySet getBasePolySet() override;
 	ExtensionFieldPoly getExtensionFieldPoly() override;
 
 private:
-	std::string m_path;
+	Source m_source;
 };
