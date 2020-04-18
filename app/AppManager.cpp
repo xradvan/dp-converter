@@ -37,6 +37,10 @@ void AppManager::run(const std::string &file)
 		ERROR(e.what());
 		m_exitCode = EXIT_FAILURE;
 	}
+	catch (const std::exception &e) {
+		ERROR("std error: " << e.what());
+		m_exitCode = EXIT_FAILURE;
+	}
 }
 
 int AppManager::exitCode() const
