@@ -52,8 +52,8 @@ struct Config
 #define C_TASK_ANALYZE "analyze"
 
 // Convert type
-#define C_CONVERT_TO_BASE "to-base"
-#define C_CONVERT_TO_EXT "to-extension"
+#define C_CONVERT_TO_BASE "to_base"
+#define C_CONVERT_TO_EXT "to_extension"
 
 // Analysis cases
 #define C_CASES_EF_Rank		"EF_rank"
