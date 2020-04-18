@@ -26,9 +26,14 @@ struct Config
 	std::string description;
 	int degree;
 	std::string task;
+	// Analyzer
 	std::string inputBaseDir;
 	std::vector<File> files;
 	std::string output;
+	// Converter
+	std::string coversionType;
+	File inputFile;
+	File outputFile;
 
 	void load(const std::string &file);
 };
@@ -55,3 +60,6 @@ struct Config
 #define C_CASES_EF_BF_multi	"EF_BF_multi"
 #define C_CASES_BF_multi	"BF_multi"
 #define C_CASES_BF_EF_rank	"BF_EF_rank"
+
+// Not set
+#define C_NOT_SET "NOT SET"
