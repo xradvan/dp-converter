@@ -1,0 +1,18 @@
+{
+	"name": "Convert to BP",
+	"description": "Conversion extension field to base field",
+	"degree": 4,
+	"task": "convert",
+	"to_extension_alg": "alg1",
+	"coversion_type": "to_base",
+	"input":
+	{
+		"file": "../tasks/convert-EF-BP/input.txt",
+		"format": "default"
+	},
+	"output":
+	{
+		"file": "../tasks/convert-EF-BP/output.txt",
+		"format": "MQ"
+	}
+}

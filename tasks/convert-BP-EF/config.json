@@ -1,0 +1,18 @@
+{
+	"name": "Convert to EF",
+	"description": "Conversion from base field to extension field",
+	"degree": 3,
+	"task": "convert",
+	"to_extension_alg": "alg1",
+	"coversion_type": "to_extension",
+	"input":
+	{
+		"file": "../tasks/convert-BP-EF/input.txt",
+		"format": "MQ"
+	},
+	"output":
+	{
+		"file": "../tasks/convert-BP-EF/output.txt",
+		"format": "default"
+	}
+}

@@ -1,11 +1,11 @@
 {
 	"name": "MIA Analysis",
-	"description": "Analyze MIA encryption scheme",
-	"degree": 3,
+	"description": "Analyze MIA trapdoor and public key",
+	"degree": 9,
 	"task": "analyze",
 	"input":
 	{
-		"input_base_dir": "../tasks/analyze-MIA/inputs/",
+		"input_base_dir": "../tasks/analyze-MIA/inputs",
 		"files": [
 			{
 				"name": "MIA_sk_polynom.txt",
@@ -21,5 +21,5 @@
 			}
 		]
 	},
-	"output": "output.txt"
+	"output": "../tasks/analyze-MIA/output.txt"
 }
