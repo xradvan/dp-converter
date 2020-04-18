@@ -9,17 +9,16 @@
  */
 #pragma once
 
-#include "OutputInterface.h"
-#include "../app/Config.h"
+#include "FileOutputInterface.h"
 
-class DefaultOutput : public OutputInterface
+class DefaultOutput : public FileOutputInterface
 {
 public:
-	DefaultOutput(const Config &c);
+	void setPath(const std::string &path) override;
 
 	void putBasePolySet(const BasePolySet &s) override;
 	void putExtensionFieldPoly(const ExtensionFieldPoly &p) override;
 
 private:
-	Config m_config;
+	std::string m_path;
 };

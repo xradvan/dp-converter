@@ -1,3 +1,12 @@
+/**
+ *@file FileInterface.h
+ *@author Bc. Peter Radvan
+ *@brief File interface
+ *@version 0.1
+ *
+ *@copyright Copyright (c) 2020
+ *
+ */
 #pragma once
 
 #include <string>

@@ -1,5 +1,6 @@
 #include "MQInput.h"
 #include "../err/MQAException.h"
+#include "../log/Logger.h"
 
 #include <fstream>
 #include <sstream>

@@ -4,15 +4,17 @@
 
 #include <fstream>
 
-MQOutput::MQOutput(const Config &c)
-	: m_config(c) {}
+void MQOutput::setPath(const std::string &path)
+{
+	m_path = path;
+}
 
 void MQOutput::putBasePolySet(const BasePolySet &s)
 {
-	INFO("Writing BasePolySet in MQ format to file " << m_config.output);
-	std::ofstream os{m_config.output};
+	INFO("Writing BasePolySet in MQ format to file " << m_path);
+	std::ofstream os{m_path};
 	if (!os.is_open()) {
-		throw MQAException(std::string{"Could not create the output file: "} + m_config.output);
+		throw MQAException(std::string{"Could not create the output file: "} + m_path);
 	}
 	int degree = ExtensionField::instance().degree();
 	for (int i = 0; i < degree; i++) {
