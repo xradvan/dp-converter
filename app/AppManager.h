@@ -9,14 +9,14 @@
  */
 #pragma once
 
-#include <string>
+#include "Config.h"
 
 class AppManager
 {
 public:
 	AppManager() = default;
 
-	void run(const std::string &file);
+	void run(const Config &config);
 	int exitCode() const;
 
 private:

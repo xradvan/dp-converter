@@ -1,17 +1,13 @@
 #include "AppManager.h"
-#include "Config.h"
 #include "../analyzer/AnalyzerFactory.h"
 #include "../converter/ConverterFactory.h"
 #include "../err/MQAException.h"
 #include "../log/Logger.h"
 #include "../polylib/PolyLib.h"
 
-void AppManager::run(const std::string &file)
+void AppManager::run(const Config &config)
 {
 	try {
-		Config config;
-		config.load(file);
-
 		// Initialize PolyLib
 		ExtensionField::instance().init(config.degree);
 
