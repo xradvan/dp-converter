@@ -9,7 +9,7 @@
  */
 #pragma once
 
-#include "../analyzer/Result.h"
+#include "UIData.h"
 
 class UIInterface
 {
@@ -17,5 +17,5 @@ public:
 	virtual ~UIInterface() = default;
 
 	virtual void init() = 0;
-	virtual void display(const Result &r) = 0;
+	virtual void display(const UIData &data) = 0;
 };

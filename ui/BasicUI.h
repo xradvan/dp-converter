@@ -18,7 +18,7 @@ public:
 	BasicUI(const Config &c);
 
 	void init() override;
-	void display(const Result &r) override;
+	void display(const UIData &data) override;
 
 private:
 	Config m_config;
