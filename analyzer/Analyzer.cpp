@@ -13,6 +13,13 @@ void Analyzer::setSources(const Sources &s)
 	m_sources = s;
 }
 
+void Analyzer::setResultProcessor(std::shared_ptr<ResultProcessorInterface> p)
+{
+	if (p) {
+		m_resultProcessor = p;
+	}
+}
+
 void Analyzer::setUI(std::shared_ptr<UIInterface> ui)
 {
 	if (ui) {
@@ -22,7 +29,7 @@ void Analyzer::setUI(std::shared_ptr<UIInterface> ui)
 
 void Analyzer::run()
 {
-	INFO("Running analysis");
+	INFO("Starting analysis");
 	for (const auto &file : m_config.files) {
 		for (const auto &source : m_sources[file.name]) {
 			for (const auto &caseName : file.cases) {
@@ -35,7 +42,26 @@ void Analyzer::run()
 void Analyzer::processResults()
 {
 	m_ui->init();
-	// std::for_each(m_cases.begin(), m_cases.end(), [this](std::future<Result> &c){ this->m_ui->display(c.get()); });
+	for (auto &resultEntry : m_results) {
+		auto file = resultEntry.first;
+		auto count = std::to_string(m_sources[file].size());
+		UIData fileInfo{
+			{"", Header1{std::string{"Group: "} + file}},
+		};
+		m_ui->display(fileInfo);
+
+		for (auto &caseEntry : m_results[file]) {
+			ResultVector toProcess;
+			std::for_each(caseEntry.second.begin(), caseEntry.second.end(),
+				[this, &toProcess](std::future<Result> &r) {
+					toProcess.push_back(r.get());
+			});
+			auto caseName = caseEntry.first;
+			auto processed = m_resultProcessor->process(caseName, toProcess);
+			m_ui->display(processed);
+		}
+	}
+	INFO("Processing results finnished");
 }
 
 void Analyzer::addCase(const std::string &fileName, const std::string &caseName, const Source &source)

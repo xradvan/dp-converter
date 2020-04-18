@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Result.h"
+#include "ResultProcessorInterface.h"
 #include "Source.h"
 #include "../app/Config.h"
 #include "../ui/UIInterface.h"
@@ -24,6 +25,7 @@ public:
 	Analyzer(const Config &c);
 
 	void setSources(const Sources &s);
+	void setResultProcessor(std::shared_ptr<ResultProcessorInterface> p);
 	void setUI(std::shared_ptr<UIInterface> ui);
 
 	void run();
@@ -36,7 +38,8 @@ private:
 	Config m_config;
 
 	Sources m_sources;
-	Results m_results;
+	FutureResults m_results;
 
+	std::shared_ptr<ResultProcessorInterface> m_resultProcessor;
 	std::shared_ptr<UIInterface> m_ui;
 };

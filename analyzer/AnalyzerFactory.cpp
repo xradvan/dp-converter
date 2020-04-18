@@ -1,4 +1,5 @@
 #include "AnalyzerFactory.h"
+#include "BasicResultProcessor.h"
 #include "SourceLoader.h"
 #include "../err/MQAException.h"
 #include "../log/Logger.h"
@@ -17,6 +18,8 @@ std::unique_ptr<Analyzer> AnalyzerFactory::create(const Config &c)
 
 	// Set Sources
 	analyzer->setSources(SourceLoader::loadSources(c));
+	// Set Result processor
+	analyzer->setResultProcessor(std::make_shared<BasicResultProcessor>());
 	// Set UI
 	analyzer->setUI(std::make_shared<BasicUI>(c));
 
