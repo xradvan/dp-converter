@@ -98,6 +98,7 @@ std::ostream &operator<<(std::ostream &os, const BasePoly &p)
 	os << "] ";
 
 	os << p.linear << " " << p.constant;
+	return os;
 }
 
 BasePolySet::BasePolySet()
