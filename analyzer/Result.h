@@ -22,4 +22,6 @@ struct Result
 };
 
 // File -> Case -> Results
-using Results = std::map<std::string, std::map<std::string, std::vector<std::future<Result> > > >;
+using ResultVector = std::vector<Result>;
+using FutureResultVector = std::vector<std::future<Result>>;
+using FutureResults = std::map<std::string, std::map<std::string, FutureResultVector>>;
