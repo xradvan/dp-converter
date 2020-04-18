@@ -61,6 +61,7 @@ void Analyzer::processResults()
 			m_ui->display(processed);
 		}
 	}
+	INFO("Analysis completed");
 	INFO("Processing results finnished");
 }
 

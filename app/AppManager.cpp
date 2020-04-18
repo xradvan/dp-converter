@@ -31,6 +31,7 @@ void AppManager::run(const std::string &file)
 			analyzer->processResults();
 		}
 
+		INFO("Program ended successufully");
 		m_exitCode = EXIT_SUCCESS;
 	}
 	catch(const MQAException &e) {
