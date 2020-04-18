@@ -1,15 +1,15 @@
-#include "MQOutput.h"
+#include "MQFileOutput.h"
 #include "../err/MQAException.h"
 #include "../log/Logger.h"
 
 #include <fstream>
 
-void MQOutput::setPath(const std::string &path)
+void MQFileOutput::setPath(const std::string &path)
 {
 	m_path = path;
 }
 
-void MQOutput::putBasePolySet(const BasePolySet &s)
+void MQFileOutput::putBasePolySet(const BasePolySet &s)
 {
 	INFO("Writing BasePolySet in MQ format to file " << m_path);
 	std::ofstream os{m_path};
@@ -29,7 +29,7 @@ void MQOutput::putBasePolySet(const BasePolySet &s)
 	}
 }
 
-void MQOutput::putExtensionFieldPoly(const ExtensionFieldPoly &p)
+void MQFileOutput::putExtensionFieldPoly(const ExtensionFieldPoly &p)
 {
 	throw MQAException("Writing ExtensionFieldPoly in MQ format is not supported");
 }

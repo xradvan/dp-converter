@@ -1,8 +1,8 @@
 #include "SourceLoader.h"
 #include "../err/MQAException.h"
 #include "../io/FileInputInterface.h"
-#include "../io/DefaultInput.h"
-#include "../io/MQInput.h"
+#include "../io/DefaultFileInput.h"
+#include "../io/MQFileInput.h"
 #include "../log/Logger.h"
 
 #include <experimental/filesystem>
@@ -21,9 +21,9 @@ Sources SourceLoader::loadSources(const Config &c)
 	for (const auto &file : c.files) {
 		// Input format
 		if (file.format == C_FORMAT_DEFAULT)
-			input = std::make_shared<DefaultInput>();
+			input = std::make_shared<DefaultFileInput>();
 		else if (file.format == C_FORMAT_MQ)
-			input = std::make_shared<MQInput>();
+			input = std::make_shared<MQFileInput>();
 		else
 			throw MQAException{std::string{"Unknown format: "} + file.format};
 

@@ -1,5 +1,5 @@
 /**
- *@file MQOutput.h
+ *@file MQFileOutput.h
  *@author Bc. Peter Radvan
  *@brief Output in MQ Challenge format
  *@warning Implemented for BasePolySet only!
@@ -12,7 +12,7 @@
 
 #include "FileOutputInterface.h"
 
-class MQOutput : public FileOutputInterface
+class MQFileOutput : public FileOutputInterface
 {
 public:
 	void setPath(const std::string &path) override;

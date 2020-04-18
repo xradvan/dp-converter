@@ -1,5 +1,5 @@
 /**
- *@file MQInput.h
+ *@file MQFileInput.h
  *@author Bc. Peter Radvan
  *@brief MQ input class
  *@version 0.1
@@ -11,7 +11,7 @@
 
 #include "FileInputInterface.h"
 
-class MQInput : public FileInputInterface
+class MQFileInput : public FileInputInterface
 {
 public:
 	void setPath(const std::string &path) override;

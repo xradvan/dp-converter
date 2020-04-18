@@ -1,14 +1,14 @@
-#include "DefaultInput.h"
+#include "DefaultFileInput.h"
 #include "../err/MQAException.h"
 
 #include <fstream>
 
-void DefaultInput::setPath(const std::string &path)
+void DefaultFileInput::setPath(const std::string &path)
 {
 	m_path = path;
 }
 
-BasePolySet DefaultInput::getBasePolySet()
+BasePolySet DefaultFileInput::getBasePolySet()
 {
 	std::ifstream is{m_path};
 	if (!is.is_open()) {
@@ -25,7 +25,7 @@ BasePolySet DefaultInput::getBasePolySet()
 	return result;
 }
 
-ExtensionFieldPoly DefaultInput::getExtensionFieldPoly()
+ExtensionFieldPoly DefaultFileInput::getExtensionFieldPoly()
 {
 	std::ifstream is{m_path};
 	if (!is.is_open()) {

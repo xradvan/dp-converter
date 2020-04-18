@@ -1,16 +1,16 @@
-#include "MQInput.h"
+#include "MQFileInput.h"
 #include "../err/MQAException.h"
 #include "../log/Logger.h"
 
 #include <fstream>
 #include <sstream>
 
-void MQInput::setPath(const std::string &path)
+void MQFileInput::setPath(const std::string &path)
 {
 	m_path = path;
 }
 
-BasePolySet MQInput::getBasePolySet()
+BasePolySet MQFileInput::getBasePolySet()
 {
 	std::ifstream is{m_path};
 	if (!is.is_open()) {
@@ -34,7 +34,7 @@ BasePolySet MQInput::getBasePolySet()
 	return result;
 }
 
-ExtensionFieldPoly MQInput::getExtensionFieldPoly()
+ExtensionFieldPoly MQFileInput::getExtensionFieldPoly()
 {
 	throw MQAException("Reading ExtensionFieldPoly in MQ format is not supported");
 }

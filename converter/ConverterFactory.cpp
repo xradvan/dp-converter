@@ -2,10 +2,10 @@
 #include "../err/MQAException.h"
 #include "../io/FileInputInterface.h"
 #include "../io/FileOutputInterface.h"
-#include "../io/DefaultInput.h"
-#include "../io/MQInput.h"
-#include "../io/DefaultOutput.h"
-#include "../io/MQOutput.h"
+#include "../io/DefaultFileInput.h"
+#include "../io/MQFileInput.h"
+#include "../io/DefaultFileOutput.h"
+#include "../io/MQFileOutput.h"
 
 std::unique_ptr<Converter> ConverterFactory::create(const Config &c)
 {
@@ -14,9 +14,9 @@ std::unique_ptr<Converter> ConverterFactory::create(const Config &c)
 	// Set Input
 	std::shared_ptr<FileInputInterface> input;
 	if (c.inputFile.format == C_FORMAT_DEFAULT)
-		input = std::make_shared<DefaultInput>();
+		input = std::make_shared<DefaultFileInput>();
 	else if (c.inputFile.format == C_FORMAT_MQ)
-		input = std::make_shared<MQInput>();
+		input = std::make_shared<MQFileInput>();
 	else
 		throw MQAException(std::string{"Unknown converter input format: "} + c.inputFile.format);
 	input->setPath(c.inputFile.name);
@@ -25,9 +25,9 @@ std::unique_ptr<Converter> ConverterFactory::create(const Config &c)
 	// Set Output
 	std::shared_ptr<FileOutputInterface> output;
 	if (c.outputFile.format == C_FORMAT_DEFAULT)
-		output = std::make_shared<DefaultOutput>();
+		output = std::make_shared<DefaultFileOutput>();
 	else if (c.outputFile.format == C_FORMAT_MQ)
-		output = std::make_shared<MQOutput>();
+		output = std::make_shared<MQFileOutput>();
 	else
 		throw MQAException(std::string{"Unknown converter output format: "} + c.outputFile.format);
 

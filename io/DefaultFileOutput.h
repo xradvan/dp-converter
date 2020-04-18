@@ -1,5 +1,5 @@
 /**
- *@file DefaultOutput.h
+ *@file DefaultFileOutput.h
  *@author Bc. Peter Radvan
  *@brief Default output class
  *@version 0.1
@@ -11,7 +11,7 @@
 
 #include "FileOutputInterface.h"
 
-class DefaultOutput : public FileOutputInterface
+class DefaultFileOutput : public FileOutputInterface
 {
 public:
 	void setPath(const std::string &path) override;

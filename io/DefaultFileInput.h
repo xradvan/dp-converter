@@ -1,5 +1,5 @@
 /**
- *@file DefaultInput.h
+ *@file DefaultFileInput.h
  *@author Bc. Peter Radvan
  *@brief Default input class
  *@version 0.1
@@ -11,7 +11,7 @@
 
 #include "FileInputInterface.h"
 
-class DefaultInput : public FileInputInterface
+class DefaultFileInput : public FileInputInterface
 {
 public:
 	void setPath(const std::string &path) override;

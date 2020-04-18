@@ -3,8 +3,8 @@
 #include "SourceLoader.h"
 #include "../err/MQAException.h"
 #include "../log/Logger.h"
-#include "../io/DefaultInput.h"
-#include "../io/MQInput.h"
+#include "../io/DefaultFileInput.h"
+#include "../io/MQFileInput.h"
 #include "../ui/BasicUI.h"
 
 #include <iterator>

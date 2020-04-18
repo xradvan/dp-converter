@@ -1,15 +1,15 @@
-#include "DefaultOutput.h"
+#include "DefaultFileOutput.h"
 #include "../err/MQAException.h"
 #include "../log/Logger.h"
 
 #include <fstream>
 
-void DefaultOutput::setPath(const std::string &path)
+void DefaultFileOutput::setPath(const std::string &path)
 {
 	m_path = path;
 }
 
-void DefaultOutput::putBasePolySet(const BasePolySet &s)
+void DefaultFileOutput::putBasePolySet(const BasePolySet &s)
 {
 	INFO("Writing BasePolySet in default format to file " << m_path);
 	std::ofstream os{m_path};
@@ -24,7 +24,7 @@ void DefaultOutput::putBasePolySet(const BasePolySet &s)
 	}
 }
 
-void DefaultOutput::putExtensionFieldPoly(const ExtensionFieldPoly &p)
+void DefaultFileOutput::putExtensionFieldPoly(const ExtensionFieldPoly &p)
 {
 	INFO("Writing ExtensionFieldPoly in default format to file " << m_path);
 	std::ofstream os{m_path};

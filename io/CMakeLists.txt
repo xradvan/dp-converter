@@ -1,15 +1,15 @@
 add_library(IO
 	# input
-	DefaultInput.cpp
+	DefaultFileInput.cpp
 	ObserverInput.cpp
 	MockInput.cpp
-	MQInput.cpp
+	MQFileInput.cpp
 	SourceInput.cpp
 
 	# output
-	DefaultOutput.cpp
+	DefaultFileOutput.cpp
 	ComparableOutput.cpp
-	MQOutput.cpp
+	MQFileOutput.cpp
 	ObservableOutput.cpp
 	RawOutput.cpp
 	SourceOutput.cpp

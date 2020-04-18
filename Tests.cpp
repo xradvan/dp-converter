@@ -2,11 +2,11 @@
 
 #include "converter/Converter.h"
 #include "converter/ToExtendedAlgorithm2.h"
-#include "io/DefaultInput.h"
-#include "io/DefaultOutput.h"
+#include "io/DefaultFileInput.h"
+#include "io/DefaultFileOutput.h"
 #include "io/MockInput.h"
-#include "io/MQInput.h"
-#include "io/MQOutput.h"
+#include "io/MQFileInput.h"
+#include "io/MQFileOutput.h"
 #include "io/ComparableOutput.h"
 #include "io/RawOutput.h"
 #include "io/ObserverInput.h"
@@ -30,7 +30,7 @@ void Tests::test0()
 	// ExtensionField::instance().init(config.degree);
 	// Converter converter;
 	// converter.setInput(std::make_shared<MockInput>());
-	// converter.setOutput(std::make_shared<DefaultOutput>(config));
+	// converter.setOutput(std::make_shared<DefaultFileOutput>(config));
 	// converter.toExtensionFieldPoly();
 	// // converter.toBasePolySet();
 }
