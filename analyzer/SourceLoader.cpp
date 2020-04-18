@@ -30,11 +30,12 @@ Sources SourceLoader::loadSources(const Config &c)
 		// Traverse subdirectories
 		for (const auto &entry : entries) {
 			auto path = entry + "/" + file.name;
+			auto fileName = path.substr(c.inputBaseDir.rfind("/"), std::string::npos);
 			input->setPath(path);
 			if (file.type == C_POLY_TYPE_BFP)
-				result[file.name].push_back({path, input->getBasePolySet()});
+				result[file.name].push_back({fileName, input->getBasePolySet()});
 			else if (file.type == C_POLY_TYPE_EFP)
-				result[file.name].push_back({path, input->getExtensionFieldPoly()});
+				result[file.name].push_back({fileName, input->getExtensionFieldPoly()});
 			else
 				throw MQAException{std::string{"Unknown type: "} + file.type};
 		}
