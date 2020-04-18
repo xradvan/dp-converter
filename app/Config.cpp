@@ -47,14 +47,12 @@ void Config::load(const std::string &file)
 		{
 			File f;
 			f.name = doc["input"]["file"].GetString();
-			f.type = doc["input"]["type"].GetString();
 			f.format = doc["input"]["format"].GetString();
 			this->inputFile = f;
 		}
 		{
 			File f;
 			f.name = doc["output"]["file"].GetString();
-			f.type = doc["output"]["type"].GetString();
 			f.format = doc["output"]["format"].GetString();
 			this->outputFile = f;
 		}
