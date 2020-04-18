@@ -1,49 +1,108 @@
 #include "Analyzer.h"
 #include "Cases.h"
+#include "../converter/Converter.h"
+#include "../io/SourceInput.h"
+#include "../io/SourceOutput.h"
 #include "../log/Logger.h"
 
-#include <cmath>
-#include <NTL/mat_GF2E.h>
+#include <algorithm>
 
 Result Cases::EF_rank(const Config &c, const Source &s)
 {
+	INFO("Analyzing case: EF_rank");
+	CasesHelpers::reinitNTL();
 	auto toProcess = std::get<ExtensionFieldPoly>(s.value);
-	int degree = ExtensionField::instance().degree();
-
-	// Create matrix
-	int dim = ceil(sqrt(toProcess.rep.rep.length()));
-	auto p = ExtensionField::instance().polynomial().rep;
-	NTL::GF2E::init(p);
-
-	NTL::mat_GF2E mat_GF2E_A;
-	mat_GF2E_A.SetDims(dim, dim);
-	int k = 0;
-	for (int i = 0; i < dim; i++) {
-		for (int j = 0; j < dim; j++) {
-			mat_GF2E_A[i][j] = toProcess.rep.rep[k++];
-		}
-	}
-	return {s.name, gauss(mat_GF2E_A)};
+	return {s.name, CasesHelpers::process(toProcess)};
 }
 
 Result Cases::EF_BF_multi(const Config &c, const Source &s)
 {
-	return {};
+	INFO("Analyzing case: EF_BF_multi");
+	CasesHelpers::reinitNTL();
+	auto toProcess = std::get<ExtensionFieldPoly>(s.value);
+
+	Converter converter;
+	auto output = std::make_shared<SourceOutput>();
+	converter.setInput(std::make_shared<SourceInput>(s));
+	converter.setOutput(output);
+	converter.toBasePolySet();
+	auto converted = std::get<BasePolySet>(output->value().value);
+	return {s.name, CasesHelpers::process(converted)};
 }
 
 Result Cases::BF_multi(const Config &c, const Source &s)
 {
+	INFO("Analyzing case: BF_multi");
+	CasesHelpers::reinitNTL();
 	auto toProcess = std::get<BasePolySet>(s.value);
-	int degree = ExtensionField::instance().degree();
-
-	std::vector<int> result;
-	for (int i = 0; i < degree; i++) {
-		result.push_back(gauss(toProcess.polynomials[i].quadratic));
-	}
-	return {s.name, result};
+	return {s.name, CasesHelpers::process(toProcess)};
 }
 
 Result Cases::BF_EF_rank(const Config &c, const Source &s)
 {
-	return {};
+	INFO("Analyzing case: BF_EF_rank");
+	CasesHelpers::reinitNTL();
+	auto toProcess = std::get<BasePolySet>(s.value);
+
+	Converter converter;
+	auto output = std::make_shared<SourceOutput>();
+	converter.setInput(std::make_shared<SourceInput>(s));
+	converter.setOutput(output);
+	converter.toExtensionFieldPoly();
+	auto converted = std::get<ExtensionFieldPoly>(output->value().value);
+	return {s.name, CasesHelpers::process(converted)};
+}
+
+NTL::mat_GF2E CasesHelpers::extensionFieldPolyToMatrix(const ExtensionFieldPoly &p)
+{
+	NTL::mat_GF2E mat_GF2E_A;
+	int degree = ExtensionField::instance().degree();
+	mat_GF2E_A.SetDims(degree, degree);
+
+	// Compute powers
+	std::vector<int> powers;
+	for (int i = 1; i < degree+1; i++)
+		powers.push_back(pow(2,i));
+
+	for (int i = 0; i < degree; i++)
+		for (int j = i+1; j < degree; j++)
+			powers.push_back(pow(2,i) + pow(2, j));
+
+	sort(powers.begin(), powers.end());
+	auto last = unique(powers.begin(), powers.end());
+	powers.erase(last, powers.end());
+
+	// Fill the matrix in the specific order
+	// so after computing (X X^2 X^4 x^8 ...)(matrix)(X X^2 X^4 x^8 ...)^T
+	// we get the polynomial back
+	auto it = powers.begin();
+	for (int i = 0; i < degree; i++) {
+		for (int j = 0; j < i+1; j++) {
+			NTL::GetCoeff(mat_GF2E_A[j][i], p.rep, *it++);
+		}
+	}
+	return mat_GF2E_A;
+}
+
+void CasesHelpers::reinitNTL()
+{
+	auto p = ExtensionField::instance().polynomial().rep;
+	NTL::GF2E::init(p);
+}
+
+int CasesHelpers::process(const ExtensionFieldPoly &p)
+{
+	auto toProcess = CasesHelpers::extensionFieldPolyToMatrix(p);
+	return NTL::gauss(toProcess);
+}
+
+std::vector<int> CasesHelpers::process(const BasePolySet &s)
+{
+	int degree = ExtensionField::instance().degree();
+	auto toProcess(s);
+	std::vector<int> result;
+	for (int i = 0; i < degree; i++) {
+		result.push_back(NTL::gauss(toProcess.polynomials[i].quadratic));
+	}
+	return result;
 }
