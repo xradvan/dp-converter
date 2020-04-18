@@ -31,6 +31,7 @@ struct Config
 	std::vector<File> files;
 	std::string output;
 	// Converter
+	std::string toExtensionAlg;
 	std::string coversionType;
 	File inputFile;
 	File outputFile;
@@ -54,6 +55,10 @@ struct Config
 // Convert type
 #define C_CONVERT_TO_BASE "to_base"
 #define C_CONVERT_TO_EXT "to_extension"
+
+// Conversion algortihms
+#define C_CONVERT_TO_EXT_ALG1 "alg1"
+#define C_CONVERT_TO_EXT_ALG2 "alg2"
 
 // Analysis cases
 #define C_CASES_EF_Rank		"EF_rank"

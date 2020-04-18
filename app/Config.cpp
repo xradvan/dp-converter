@@ -22,6 +22,7 @@ void Config::load(const std::string &file)
 	this->description = doc["description"].IsNull() ? C_NOT_SET : doc["description"].GetString();
 	this->degree = doc["degree"].IsNull() ? -1 : doc["degree"].GetInt();
 	this->task = doc["task"].IsNull() ? C_NOT_SET : doc["task"].GetString();
+	this->toExtensionAlg = doc.HasMember("to_extension_alg") ? doc["to_extension_alg"].GetString() : C_CONVERT_TO_EXT_ALG1;
 	// Analyzer part
 	if (!doc["input"].IsNull() && doc["input"].HasMember("input_base_dir")) {
 		this->inputBaseDir = doc["input"]["input_base_dir"].GetString();

@@ -1,5 +1,6 @@
 #include "ConverterFactory.h"
 #include "../err/MQAException.h"
+#include "../converter/ToExtendedAlgorithm2.h"
 #include "../io/FileInputInterface.h"
 #include "../io/FileOutputInterface.h"
 #include "../io/DefaultFileInput.h"
@@ -34,6 +35,9 @@ std::unique_ptr<Converter> ConverterFactory::create(const Config &c)
 	output->setPath(c.outputFile.name);
 	converter->setOutput(output);
 
-	// // Set algorithm
+	// Set algorithm
+	if (c.toExtensionAlg == C_CONVERT_TO_EXT_ALG2) {
+		converter->setToExtendedAlgorithm(std::shared_ptr<ToExtendedAlgrotihm2>());
+	}
 	return converter;
 }
