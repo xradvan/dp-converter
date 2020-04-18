@@ -2,12 +2,12 @@
 
 void SourceOutput::putBasePolySet(const BasePolySet &s)
 {
-	m_source.basePolySet = s;
+	m_source.value = s;
 }
 
 void SourceOutput::putExtensionFieldPoly(const ExtensionFieldPoly &p)
 {
-	m_source.extensionFieldPoly = p;
+	m_source.value = p;
 }
 
 Source SourceOutput::value()

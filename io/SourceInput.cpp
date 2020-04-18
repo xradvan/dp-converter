@@ -7,10 +7,10 @@ SourceInput::SourceInput(const Source &s)
 
 BasePolySet SourceInput::getBasePolySet()
 {
-	return m_source.basePolySet;
+	return std::get<BasePolySet>(m_source.value);
 }
 
 ExtensionFieldPoly SourceInput::getExtensionFieldPoly()
 {
-	return m_source.extensionFieldPoly;
+	return std::get<ExtensionFieldPoly>(m_source.value);
 }

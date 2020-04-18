@@ -4,6 +4,7 @@ add_library(IO
 	ObserverInput.cpp
 	MockInput.cpp
 	MQInput.cpp
+	SourceInput.cpp
 
 	# output
 	#DefaultOutput.cpp
@@ -11,4 +12,5 @@ add_library(IO
 	#MQOutput.cpp
 	ObservableOutput.cpp
 	RawOutput.cpp
+	SourceOutput.cpp
 )
