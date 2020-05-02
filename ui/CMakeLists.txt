@@ -1,1 +1,4 @@
-add_library(UI BasicUI.cpp UIData.cpp)
+add_library(UI
+	BasicUI.cpp
+	UIData.cpp
+)
