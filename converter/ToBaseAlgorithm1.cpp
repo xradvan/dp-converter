@@ -31,7 +31,7 @@ BasePolySet ToBaseAlgorithm1::convert(const ExtensionFieldPoly &toConvert)
 		if (!IsZero(term)) {
 			PolyPowers p = PolyPowers::getPowers(i);
 			if (p.p1 == PolyPowers::NOT_SET && p.p2 == PolyPowers::NOT_SET) {
-				throw MQAException("Term could not be processed converted");
+				throw MQAException("Term could not be processed during converion");
 			}
 
 			vec_GF2E vec_gf2e_tmp1;
