@@ -14,3 +14,9 @@
 
 # Ignore auto-generated docs
 docs/html/
+
+# Test files
+*.txt
+*.png
+*.py
+*.json
