@@ -37,7 +37,7 @@ std::unique_ptr<Converter> ConverterFactory::create(const Config &c)
 
 	// Set algorithm
 	if (c.toExtensionAlg == C_CONVERT_TO_EXT_ALG2) {
-		converter->setToExtendedAlgorithm(std::shared_ptr<ToExtendedAlgrotihm2>());
+		converter->setToExtendedAlgorithm(std::make_shared<ToExtendedAlgrotihm2>());
 	}
 	return converter;
 }

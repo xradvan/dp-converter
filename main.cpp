@@ -71,9 +71,6 @@ int main(int argc, char *argv[])
 	}
 	// Set defaults
 	if (setDefaults) {
-		// Conversion algorithm
-		config.toExtensionAlg = C_CONVERT_TO_EXT_ALG1;
-
 		// IO format
 		if (config.coversionType == C_CONVERT_TO_EXT) {
 			infile.format = C_FORMAT_MQ;
