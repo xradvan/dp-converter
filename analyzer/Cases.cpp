@@ -93,7 +93,9 @@ void CasesHelpers::reinitNTL()
 int CasesHelpers::process(const ExtensionFieldPoly &p)
 {
 	auto toProcess = CasesHelpers::extensionFieldPolyToMatrix(p);
-	return NTL::gauss(toProcess);
+	auto toProcessT = NTL::transpose(toProcess);
+	auto sum = toProcess + toProcessT;
+	return NTL::gauss(sum);
 }
 
 std::vector<int> CasesHelpers::process(const BasePolySet &s)
@@ -102,7 +104,10 @@ std::vector<int> CasesHelpers::process(const BasePolySet &s)
 	auto toProcess(s);
 	std::vector<int> result;
 	for (int i = 0; i < degree; i++) {
-		result.push_back(NTL::gauss(toProcess.polynomials[i].quadratic));
+		auto M = toProcess.polynomials[i].quadratic;
+		auto M_T = NTL::transpose(M);
+		auto sum = M + M_T;
+		result.push_back(NTL::gauss(sum));
 	}
 	return result;
 }
