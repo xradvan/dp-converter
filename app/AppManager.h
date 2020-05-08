@@ -16,8 +16,12 @@ class AppManager
 public:
 	AppManager() = default;
 
-	void run(const Config &config);
+	void run(int argc, char *argv[]);
 	int exitCode() const;
+
+private:
+	Config parseArgs(int argc, char *argv[]);
+	void runInternal(const Config &config);
 
 private:
 	int m_exitCode;
