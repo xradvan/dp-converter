@@ -16,7 +16,9 @@ void Config::load(const std::string &file)
 	buffer << is.rdbuf();
 
 	rapidjson::Document doc;
-	doc.Parse(buffer.str().c_str());
+	if (doc.Parse(buffer.str().c_str()).HasParseError()) {
+		throw MQAException("Config file is not properly JSON formatted");
+	}
 
 	this->name = doc["name"].IsNull() ? C_NOT_SET : doc["name"].GetString();
 	this->description = doc["description"].IsNull() ? C_NOT_SET : doc["description"].GetString();
