@@ -3,6 +3,8 @@
 
 #include <NTL/vec_GF2E.h>
 #include <NTL/mat_GF2E.h>
+#include <NTL/ZZ.h>
+#include <NTL/ZZ_p.h>
 
 using namespace NTL;
 
@@ -46,7 +48,8 @@ ExtensionFieldPoly ToExtendedAlgrotihm2::convert(const BasePolySet &toConvert)
 	for (int i = 1; i < degree; i++) {
 		GF2E gf2e_w = power(alpha, i);
 		// multiply by w
-		for (int j = 0; j < pow(2, degree); j++) {
+		long toJ = power_long(2, degree);
+		for (long j = 0; j < toJ; j++) {
 			GF2E gf2e_coeff;
 			GetCoeff(gf2e_coeff, complexPartialPolyVec[i], j);
 			if (gf2e_coeff != gf2e_null) {
@@ -75,9 +78,10 @@ vec_GF2EX ToExtendedAlgrotihm2::createPartialPolyVec()
 	alpha.LoopHole()[1] = 1;
 
 	// pre-compute powers for alphas in a row
-	std::vector<int> powers;
+	ZZ_p::init(power2_ZZ(degree)-1);
+	Vec<ZZ_p> powers;
 	for (int i = 0; i < degree; i++)
-		powers.push_back(pow(2,i));
+		powers.append(power(ZZ_p{2}, ZZ{i}));
 
 	// righ sides to compute simple partial polynomials
 	vec_vec_GF2 rightSides;
@@ -92,7 +96,7 @@ vec_GF2EX ToExtendedAlgrotihm2::createPartialPolyVec()
 		rightSides.append(u);
 		// continue in creating matrix
 		for (int j = 0; j < degree; j++) {
-			mat_gf2e_A[i][j] = power(rowAplha, powers[j]);
+			mat_gf2e_A[i][j] = power(rowAplha, conv<ZZ>(powers[j]));
 		}
 	}
 
@@ -114,8 +118,8 @@ vec_GF2EX ToExtendedAlgrotihm2::createPartialPolyVec()
 
 		// create partial polynomial
 		GF2EX gf2ex_p;
-		for (int i = 0; i < degree; i++) {
-			SetCoeff(gf2ex_p, powers[i], vec_gf2e_x[i]);
+		for (int j = 0; j < degree; j++) {
+			SetCoeff(gf2ex_p, conv<long>(powers[j]), vec_gf2e_x[j]);
 		}
 
 		// append to result list

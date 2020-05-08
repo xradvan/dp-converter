@@ -37,13 +37,13 @@ ExtensionFieldPoly ToExtendedAlgrotihm1::convert(const BasePolySet &toConvert)
 	}
 
 	// compute all possible powers of the terms
-	std::vector<int> powers;
+	std::vector<long> powers;
 	for (int i = 0; i < degree; i++)
-		powers.push_back(pow(2,i));
+		powers.push_back(power_long(2,i));
 
 	for (int i = 0; i < degree; i++)
 		for (int j = i+1; j < degree; j++)
-			powers.push_back(pow(2,i) + pow(2, j));
+			powers.push_back(power_long(2,i) + power_long(2, j));
 
 	sort(powers.begin(), powers.end());
 	auto last = unique(powers.begin(), powers.end());
