@@ -1,5 +1,6 @@
 #include "ToBaseAlgorithm1.h"
 #include "../err/MQAException.h"
+#include "../log/Logger.h"
 
 #include <NTL/GF2E.h>
 #include <NTL/vec_GF2E.h>
@@ -14,20 +15,21 @@ BasePolySet ToBaseAlgorithm1::convert(const ExtensionFieldPoly &toConvert)
 	BasePolySet result;
 
 	// Start by computing constant part
-	GF2E constant = coeff(toConvert.rep, 0);
-	int constantDeg = deg(constant.LoopHole());
+	auto constant = toConvert.getCoeff(0);
+	long constantDeg = deg(constant.LoopHole());
 
-	for (int i = 0; i <= constantDeg; i++) {
+	for (long i = 0; i <= constantDeg; i++) {
 		if (constant.LoopHole()[i] == 1) {
 			result.polynomials[i].constant += 1;
 		}
 	}
 
+	INFO_POLY(toConvert);
+	PRINT("AAA");
 	// Convert terms
-	int toConvertDeg = deg(toConvert.rep);
-	for (int i = 1; i <= toConvertDeg; i++) {
-		GF2E term = coeff(toConvert.rep, i);
-
+	auto toConvertDeg = toConvert.degree();
+	for (ZZ i{1}; i <= toConvertDeg; i++) {
+		auto term = toConvert.getCoeff(i);
 		if (!IsZero(term)) {
 			PolyPowers p = PolyPowers::getPowers(i);
 			if (p.p1 == PolyPowers::NOT_SET && p.p2 == PolyPowers::NOT_SET) {

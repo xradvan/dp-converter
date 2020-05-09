@@ -31,5 +31,5 @@ void DefaultFileOutput::putExtensionFieldPoly(const ExtensionFieldPoly &p)
 	if (!os.is_open()) {
 		throw MQAException(std::string{"Could not create the output file: "} + m_path);
 	}
-	os << p.rep;
+	p.put(os);
 }

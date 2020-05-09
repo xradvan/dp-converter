@@ -32,6 +32,11 @@ ExtensionFieldPoly DefaultFileInput::getExtensionFieldPoly()
 		throw MQAException(std::string{"Could not open the file: "} + m_path);
 	}
 	ExtensionFieldPoly result;
-	is >> result.rep;
+	std::string line;
+	NTL::ZZ i;
+	NTL::GF2E a;
+	while ((is >> i) && (is >> a)) {
+		result.setCoeff(i, a);
+	}
 	return result;
 }

@@ -12,9 +12,12 @@
 
 #include <NTL/GF2.h>
 #include <NTL/GF2EX.h>
+#include <NTL/ZZ.h>
 #include <NTL/mat_GF2.h>
 #include <NTL/vec_GF2.h>
 #include <NTL/vec_GF2E.h>
+
+#include <map>
 
 /**
  * @brief Primitive polynomial to build extension field
@@ -75,7 +78,7 @@ struct PolyPowers
 	int p2;
 	PolyPowers();
 
-	static PolyPowers getPowers(int n);
+	static PolyPowers getPowers(const NTL::ZZ &n);
 	enum { NOT_SET = -1 };
 };
 
@@ -90,6 +93,7 @@ struct BasePoly
 	NTL::GF2 constant;
 
 	BasePoly();
+	bool isEmpty();
 	bool operator==(const BasePoly &p);
 	bool operator!=(const BasePoly &p);
 	friend std::ostream &operator<<(std::ostream &os, const BasePoly &p);
@@ -104,19 +108,33 @@ struct BasePolySet
 	NTL::Vec<BasePoly> polynomials;
 
 	BasePolySet();
+	bool isEmpty();
 	bool operator==(const BasePolySet &s);
 	bool operator!=(const BasePolySet &s);
 };
 
 /**
  * @brief Structure to represent polynomial over extension field
- * @todo add interface (ctor, << ... ), builder pattern?
  */
-struct ExtensionFieldPoly
+class ExtensionFieldPoly
 {
-	NTL::GF2EX rep;
+public:
+	ExtensionFieldPoly() = default;
+
+	void setCoeff(const NTL::ZZ &i, const NTL::GF2E &a);
+	void setCoeff(const NTL::ZZ &i, long a);
+	NTL::GF2E getCoeff(const NTL::ZZ &i) const;
+	NTL::GF2E getCoeff(long i) const;
+	NTL::ZZ degree() const;
+	bool isEmpty();
 	bool operator==(const ExtensionFieldPoly &p);
-	bool operator!=(const ExtensionFieldPoly &p);
+	void put(std::ostream &os) const;
+
+	// ExtensionFieldPoly operator+(const ExtensionFieldPoly &p);
+	// ExtensionFieldPoly operator+=(const ExtensionFieldPoly &p);
+
+private:
+	std::map<NTL::ZZ, NTL::GF2E> m_rep;
 };
 
 /**
@@ -129,4 +147,5 @@ struct Helpers
 	static void setAlphas(NTL::vec_GF2E &vec, long p);
 	static NTL::vec_GF2 gf2eToVec(const NTL::GF2E &v);
 	static NTL::vec_GF2 eval(const BasePolySet &poly, const NTL::vec_GF2 &value);
+	static void sort(NTL::Vec<NTL::ZZ> &v);
 };

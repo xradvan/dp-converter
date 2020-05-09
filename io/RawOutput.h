@@ -14,6 +14,8 @@
 class RawOutput : public OutputInterface
 {
 public:
+	RawOutput() = default;
+
 	void putBasePolySet(const BasePolySet &s) override;
 	void putExtensionFieldPoly(const ExtensionFieldPoly &p) override;
 };

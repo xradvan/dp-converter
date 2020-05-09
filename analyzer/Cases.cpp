@@ -5,6 +5,7 @@
 #include "../io/SourceOutput.h"
 #include "../log/Logger.h"
 
+#include <NTL/ZZ.h>
 #include <algorithm>
 
 Result Cases::EF_rank(const Config &c, const Source &s)
@@ -55,30 +56,29 @@ Result Cases::BF_EF_rank(const Config &c, const Source &s)
 
 NTL::mat_GF2E CasesHelpers::extensionFieldPolyToMatrix(const ExtensionFieldPoly &p)
 {
-	NTL::mat_GF2E mat_GF2E_A;
+	static NTL::mat_GF2E mat_GF2E_A;
 	int degree = ExtensionField::instance().degree();
 	mat_GF2E_A.SetDims(degree, degree);
 
-	// Compute powers
-	std::vector<int> powers;
-	for (int i = 1; i < degree+1; i++)
-		powers.push_back(pow(2,i));
+	// compute all possible powers of the terms
+	static NTL::Vec<NTL::ZZ> powers;
+	for (long i = 0; i < degree; i++)
+		powers.append(NTL::power2_ZZ(i));
 
-	for (int i = 0; i < degree; i++)
-		for (int j = i+1; j < degree; j++)
-			powers.push_back(pow(2,i) + pow(2, j));
+	for (long i = 0; i < degree; i++)
+		for (long j = i+1; j < degree; j++)
+			powers.append(NTL::power2_ZZ(i) + NTL::power2_ZZ(j));
 
-	sort(powers.begin(), powers.end());
-	auto last = unique(powers.begin(), powers.end());
-	powers.erase(last, powers.end());
+	powers.append(NTL::ZZ(0));
 
 	// Fill the matrix in the specific order
 	// so after computing (X X^2 X^4 x^8 ...)(matrix)(X X^2 X^4 x^8 ...)^T
 	// we get the polynomial back
-	auto it = powers.begin();
-	for (int i = 0; i < degree; i++) {
-		for (int j = 0; j < i+1; j++) {
-			NTL::GetCoeff(mat_GF2E_A[j][i], p.rep, *it++);
+	long k = 0;
+	for (long i = 0; i < degree; i++) {
+		for (long j = 0; j < i+1; j++) {
+			mat_GF2E_A[j][i] = p.getCoeff(powers[i]);
+			k++;
 		}
 	}
 	return mat_GF2E_A;

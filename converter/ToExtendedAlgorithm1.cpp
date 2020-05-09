@@ -37,25 +37,23 @@ ExtensionFieldPoly ToExtendedAlgrotihm1::convert(const BasePolySet &toConvert)
 	}
 
 	// compute all possible powers of the terms
-	std::vector<long> powers;
-	for (int i = 0; i < degree; i++)
-		powers.push_back(power_long(2,i));
+	static Vec<ZZ> powers;
+	for (long i = 0; i < degree; i++)
+		powers.append(power2_ZZ(i));
 
-	for (int i = 0; i < degree; i++)
-		for (int j = i+1; j < degree; j++)
-			powers.push_back(power_long(2,i) + power_long(2, j));
+	for (long i = 0; i < degree; i++)
+		for (long j = i+1; j < degree; j++)
+			powers.append(power2_ZZ(i) + power2_ZZ(j));
 
-	sort(powers.begin(), powers.end());
-	auto last = unique(powers.begin(), powers.end());
-	powers.erase(last, powers.end());
-	powers.push_back(0);
+	powers.append(ZZ(0));
 
-	mat_GF2E mat_gf2e_A;
+	static mat_GF2E mat_gf2e_A;
 	mat_gf2e_A.SetDims(numTerms, numTerms);
 
 	for (int i = 0; i < numTerms; i++)
-		for (int j = 0; j < numTerms; j++)
-			mat_gf2e_A[i][j] = power(vec_gf2e_inputs2[i], powers[j]);
+		for (int j = 0; j < numTerms; j++) {
+			power(mat_gf2e_A[i][j], vec_gf2e_inputs2[i], powers[j]);
+		}
 
 	GF2E gf2e_determinant;
 	vec_GF2E vec_gf2e_x;
@@ -75,8 +73,8 @@ ExtensionFieldPoly ToExtendedAlgrotihm1::convert(const BasePolySet &toConvert)
 
 	GF2EX gf2ex_p; SetCoeff(gf2ex_p, 0, conv<GF2E>(gf2x_tmp_const));
 	for (int i = 0; i < numTerms; i++)
-		SetCoeff(gf2ex_p, powers[i], vec_gf2e_x[i]);
-	result.rep = gf2ex_p;
+		// SetCoeff(gf2ex_p, powers[i], vec_gf2e_x[i]);
+		result.setCoeff(powers[i], vec_gf2e_x[i]);
 
 	return result;
 }

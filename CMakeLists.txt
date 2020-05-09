@@ -8,8 +8,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # include debug symbols
-#set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -ggdb")
-#set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ggdb")
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -ggdb")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ggdb")
 
 # configure a header file to pass some of the CMake settings
 # to the source code
@@ -43,9 +43,9 @@ target_link_libraries(
 	Analyzer
 
 	Converter
-	IO
-	Logger
 	PolyLib
+	Logger
+	IO
 	UI
 
 	# NTL

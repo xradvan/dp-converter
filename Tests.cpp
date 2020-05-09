@@ -16,23 +16,22 @@
 
 #include "app/Config.h"
 
+#include <fstream>
 #include <memory>
+
+using namespace NTL;
 
 void Tests::test0()
 {
-	// Config config;
-	// config.input = "../tasks/test";
-	// config.inputFormat = "default";
-	// config.output = "../tasks/test";
-	// config.outputFormat = "default";
-	// config.degree = 4;
-
-	// ExtensionField::instance().init(config.degree);
-	// Converter converter;
-	// converter.setInput(std::make_shared<MockInput>());
-	// converter.setOutput(std::make_shared<DefaultFileOutput>(config));
-	// converter.toExtensionFieldPoly();
-	// // converter.toBasePolySet();
+	ExtensionField::instance().init(3);
+	Converter converter;
+	auto input = std::make_shared<DefaultFileInput>();
+	input->setPath("aa.txt");
+	auto output = std::make_shared<MQFileOutput>();
+	output->setPath("aaa.txt");
+	converter.setInput(input);
+	converter.setOutput(output);
+	converter.toBasePolySet();
 }
 
 void Tests::test1()
@@ -122,17 +121,17 @@ void Tests::test2()
 
 void Tests::test3()
 {
-	int degree = 3;
-	ExtensionField::instance().init(degree);
-	Converter converter;
+	// int degree = 3;
+	// ExtensionField::instance().init(degree);
+	// Converter converter;
 
-	// IO
-	auto input = std::make_shared<MockInput>();
-	auto output = std::make_shared<ComparableOutput>();
-	output->setSource(input);
+	// // IO
+	// auto input = std::make_shared<MockInput>();
+	// auto output = std::make_shared<ComparableOutput>();
+	// output->setSource(input);
 
-	converter.setInput(input);
-	converter.setOutput(output);
-	converter.setToExtendedAlgorithm(std::make_shared<ToExtendedAlgrotihm2>());
-	converter.toBasePolySet();
+	// converter.setInput(input);
+	// converter.setOutput(output);
+	// converter.setToExtendedAlgorithm(std::make_shared<ToExtendedAlgrotihm2>());
+	// converter.toBasePolySet();
 }

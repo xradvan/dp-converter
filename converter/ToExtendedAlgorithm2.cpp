@@ -65,7 +65,7 @@ ExtensionFieldPoly ToExtendedAlgrotihm2::convert(const BasePolySet &toConvert)
 	}
 
 	ExtensionFieldPoly result;
-	result.rep = gf2ex_sum;
+	// result.rep = gf2ex_sum;
 	return result;
 }
 

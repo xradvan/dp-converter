@@ -36,10 +36,13 @@ void Converter::setToExtendedAlgorithm(std::shared_ptr<ToExtendedAlgInterface> a
 	}
 }
 
-
 void Converter::toBasePolySet()
 {
 	ExtensionFieldPoly toConvert = m_input->getExtensionFieldPoly();
+	if (toConvert.isEmpty()) {
+		ERROR("Cannot convert to base field polynomial - input is empty");
+		return;
+	}
 	INFO("Converting to base field polynomial");
 	BasePolySet result = m_toBaseAlgorithm->convert(toConvert);
 	m_output->putBasePolySet(result);
@@ -48,6 +51,10 @@ void Converter::toBasePolySet()
 void Converter::toExtensionFieldPoly()
 {
 	BasePolySet toConvert = m_input->getBasePolySet();
+	if (toConvert.isEmpty()) {
+		ERROR("Cannot convert to extension field polynomial - input is empty");
+		return;
+	}
 	INFO("Converting to extension field polynomial");
 	ExtensionFieldPoly result = m_toExtendedAlgorithm->convert(toConvert);
 	m_output->putExtensionFieldPoly(result);
