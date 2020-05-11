@@ -68,13 +68,13 @@ void Analyzer::processResults()
 void Analyzer::addCase(const std::string &fileName, const std::string &caseName, const Source &source)
 {
 	if (caseName == C_CASES_EF_Rank)
-		m_results[fileName][caseName].push_back(std::async(std::launch::async, Cases::EF_rank, m_config, source));
+		m_results[fileName][caseName].push_back(std::async(std::launch::deferred, Cases::EF_rank, m_config, source));
 	else if (caseName == C_CASES_EF_BF_multi)
-		m_results[fileName][caseName].push_back(std::async(std::launch::async, Cases::EF_BF_multi, m_config, source));
+		m_results[fileName][caseName].push_back(std::async(std::launch::deferred, Cases::EF_BF_multi, m_config, source));
 	else if (caseName == C_CASES_BF_multi)
-		m_results[fileName][caseName].push_back(std::async(std::launch::async, Cases::BF_multi, m_config, source));
+		m_results[fileName][caseName].push_back(std::async(std::launch::deferred, Cases::BF_multi, m_config, source));
 	else if (caseName == C_CASES_BF_EF_rank)
-		m_results[fileName][caseName].push_back(std::async(std::launch::async, Cases::BF_EF_rank, m_config, source));
+		m_results[fileName][caseName].push_back(std::async(std::launch::deferred, Cases::BF_EF_rank, m_config, source));
 	else
 		throw MQAException(std::string{"Unknown analyzer case: "} + caseName);
 }
