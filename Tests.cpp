@@ -25,13 +25,13 @@ void Tests::test0()
 {
 	ExtensionField::instance().init(3);
 	Converter converter;
-	auto input = std::make_shared<DefaultFileInput>();
-	input->setPath("aa.txt");
-	auto output = std::make_shared<MQFileOutput>();
-	output->setPath("aaa.txt");
+	auto input = std::make_shared<MQFileInput>();
+	input->setPath("aaa.txt");
+	auto output = std::make_shared<RawOutput>();
 	converter.setInput(input);
 	converter.setOutput(output);
-	converter.toBasePolySet();
+	converter.setToExtendedAlgorithm(std::make_shared<ToExtendedAlgrotihm2>());
+	converter.toExtensionFieldPoly();
 }
 
 void Tests::test1()
