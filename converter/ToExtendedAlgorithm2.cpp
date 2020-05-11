@@ -4,7 +4,6 @@
 #include <NTL/vec_GF2E.h>
 #include <NTL/mat_GF2E.h>
 #include <NTL/ZZ.h>
-#include <NTL/ZZ_p.h>
 
 using namespace NTL;
 
@@ -13,30 +12,32 @@ ExtensionFieldPoly ToExtendedAlgrotihm2::convert(const BasePolySet &toConvert)
 	int degree = ExtensionField::instance().degree();
 	// create vector of partial polynomials
 	// which will be used to create mappings
-	vec_GF2EX simplePartialPolyVec = createPartialPolyVec();
+	auto simplePartialPolyVec = createPartialPolyVec();
 
 	// create linear combination of partial polynomials
 	// based on the input BasePolySet
-	vec_GF2EX complexPartialPolyVec;
+	std::vector<ExtensionFieldPoly> complexPartialPolyVec;
 	for (int i = 0; i < degree; i++) {
-		GF2EX workPoly;
+		ExtensionFieldPoly workPoly;
 		// quadratic part
 		for (int j = 0; j < degree; j++) {
 			for (int k = 0; k < degree; k++) {
 				if (toConvert.polynomials[i].quadratic[j][k] == 1) {
-					workPoly += simplePartialPolyVec[j]*simplePartialPolyVec[k];
+					ExtensionFieldPoly p;
+					ExtensionFieldPoly::mul(p, simplePartialPolyVec[j], simplePartialPolyVec[k]);
+					ExtensionFieldPoly::add(workPoly, workPoly, p);
 				}
 			}
 		}
 		// linear part
 		for (int j = 0; j < degree; j++) {
 			if (toConvert.polynomials[i].linear[j] == 1) {
-				workPoly += simplePartialPolyVec[j];
+				ExtensionFieldPoly::add(workPoly, workPoly, simplePartialPolyVec[j]);
 			}
 		}
 		// constant part
-		workPoly += toConvert.polynomials[i].constant;
-		complexPartialPolyVec.append(workPoly);
+		workPoly.setCoeff(ZZ{0}, conv<GF2E>(toConvert.polynomials[i].constant));
+		complexPartialPolyVec.push_back(workPoly);
 	}
 
 	// move complex partial polynomials to the i-th position
@@ -44,32 +45,27 @@ ExtensionFieldPoly ToExtendedAlgrotihm2::convert(const BasePolySet &toConvert)
 	GF2E alpha;
 	alpha.LoopHole().SetLength(degree);
 	alpha.LoopHole()[1] = 1;
-	GF2E gf2e_null;
 	for (int i = 1; i < degree; i++) {
 		GF2E gf2e_w = power(alpha, i);
 		// multiply by w
-		long toJ = power_long(2, degree);
-		for (long j = 0; j < toJ; j++) {
-			GF2E gf2e_coeff;
-			GetCoeff(gf2e_coeff, complexPartialPolyVec[i], j);
-			if (gf2e_coeff != gf2e_null) {
-				SetCoeff(complexPartialPolyVec[i], j, gf2e_coeff * gf2e_w);
+		ZZ toJ = power2_ZZ(degree);
+		for (ZZ j{0}; j < toJ; j++) {
+			auto gf2e_coeff = complexPartialPolyVec[i].getCoeff(j);
+			if (!IsZero(gf2e_coeff)) {
+				complexPartialPolyVec[i].setCoeff(j, gf2e_coeff * gf2e_w);
 			}
 		}
 	}
 
 	// sum partial polynomials
-	GF2EX gf2ex_sum;
-	for (int i = 0; i < degree; i++) {
-		gf2ex_sum += complexPartialPolyVec[i];
-	}
-
 	ExtensionFieldPoly result;
-	// result.rep = gf2ex_sum;
+	for (int i = 0; i < degree; i++) {
+		ExtensionFieldPoly::add(result, result, complexPartialPolyVec[i]);
+	}
 	return result;
 }
 
-vec_GF2EX ToExtendedAlgrotihm2::createPartialPolyVec()
+std::vector<ExtensionFieldPoly> ToExtendedAlgrotihm2::createPartialPolyVec()
 {
 	int degree = ExtensionField::instance().degree();
 	// alpha term - used later
@@ -78,10 +74,9 @@ vec_GF2EX ToExtendedAlgrotihm2::createPartialPolyVec()
 	alpha.LoopHole()[1] = 1;
 
 	// pre-compute powers for alphas in a row
-	ZZ_p::init(power2_ZZ(degree)-1);
-	Vec<ZZ_p> powers;
+	Vec<ZZ> powers;
 	for (int i = 0; i < degree; i++)
-		powers.append(power(ZZ_p{2}, ZZ{i}));
+		powers.append(power2_ZZ(i));
 
 	// righ sides to compute simple partial polynomials
 	vec_vec_GF2 rightSides;
@@ -100,7 +95,7 @@ vec_GF2EX ToExtendedAlgrotihm2::createPartialPolyVec()
 		}
 	}
 
-	vec_GF2EX result;
+	std::vector<ExtensionFieldPoly> result;
 	GF2E gf2e_determinant;
 	transposeRS(rightSides);
 
@@ -117,13 +112,13 @@ vec_GF2EX ToExtendedAlgrotihm2::createPartialPolyVec()
 		}
 
 		// create partial polynomial
-		GF2EX gf2ex_p;
+		ExtensionFieldPoly p;
 		for (int j = 0; j < degree; j++) {
-			SetCoeff(gf2ex_p, conv<long>(powers[j]), vec_gf2e_x[j]);
+			p.setCoeff(powers[j], vec_gf2e_x[j]);
 		}
 
 		// append to result list
-		result.append(gf2ex_p);
+		result.push_back(p);
 	}
 
 	return result;
