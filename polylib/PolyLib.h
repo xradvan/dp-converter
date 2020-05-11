@@ -19,6 +19,8 @@
 
 #include <map>
 
+using EFPRep = std::map<NTL::ZZ, NTL::GF2E>;
+
 /**
  * @brief Primitive polynomial to build extension field
  * Internal representation by NTL::GF2X
@@ -130,11 +132,13 @@ public:
 	bool operator==(const ExtensionFieldPoly &p);
 	void put(std::ostream &os) const;
 
-	// ExtensionFieldPoly operator+(const ExtensionFieldPoly &p);
-	// ExtensionFieldPoly operator+=(const ExtensionFieldPoly &p);
+	static void add(ExtensionFieldPoly &x, const ExtensionFieldPoly &a, const ExtensionFieldPoly &b);
+	static void mul(ExtensionFieldPoly &x, const ExtensionFieldPoly &a, const ExtensionFieldPoly &b);
+	static void reduce(ExtensionFieldPoly &x, long degree);
+	static void mul_red(ExtensionFieldPoly &x, ExtensionFieldPoly &a, ExtensionFieldPoly &b, long degree);
 
 private:
-	std::map<NTL::ZZ, NTL::GF2E> m_rep;
+	EFPRep m_rep;
 };
 
 /**

@@ -237,6 +237,49 @@ void ExtensionFieldPoly::put(std::ostream &os) const
 			os << it->first << " " << it->second << std::endl;
 }
 
+void ExtensionFieldPoly::add(ExtensionFieldPoly &x, const ExtensionFieldPoly &a, const ExtensionFieldPoly &b)
+{
+	x.m_rep = a.m_rep;
+	for (auto it = b.m_rep.begin(); it != b.m_rep.end(); it++) {
+		x.m_rep[it->first] += it->second;
+	}
+}
+
+void ExtensionFieldPoly::mul(ExtensionFieldPoly &x, const ExtensionFieldPoly &a, const ExtensionFieldPoly &b)
+{
+	x.m_rep.clear();
+	for (auto it_a = a.m_rep.begin(); it_a != a.m_rep.end(); it_a++) {
+		for (auto it_b = b.m_rep.begin(); it_b != b.m_rep.end(); it_b++) {
+			x.m_rep[(it_a->first + it_b->first)] += (it_a->second)*(it_b->second);
+		}
+	}
+}
+
+void ExtensionFieldPoly::reduce(ExtensionFieldPoly &x, long degree)
+{
+	NTL::ZZ modulus = NTL::power2_ZZ(degree)-1;
+	for (auto it = x.m_rep.cbegin(); it != x.m_rep.cend(); ) {
+		if (it->first > modulus) {
+			x.m_rep[it->first % modulus] += it->second;
+			x.m_rep.erase(it++);
+		}
+		else {
+			++it;
+		}
+	}
+}
+
+void ExtensionFieldPoly::mul_red(ExtensionFieldPoly &x, ExtensionFieldPoly &a, ExtensionFieldPoly &b, long degree)
+{
+	x.m_rep.clear();
+	for (auto it_a = a.m_rep.begin(); it_a != a.m_rep.end(); it_a++) {
+		for (auto it_b = b.m_rep.begin(); it_b != b.m_rep.end(); it_b++) {
+			x.m_rep[(it_a->first + it_b->first)] += (it_a->second)*(it_b->second);
+		}
+	}
+	reduce(x, degree);
+}
+
 NTL::vec_GF2 Helpers::intToVec(int value)
 {
 	int degree = ExtensionField::instance().degree();
