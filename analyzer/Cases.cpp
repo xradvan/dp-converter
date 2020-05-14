@@ -77,8 +77,7 @@ NTL::mat_GF2E CasesHelpers::extensionFieldPolyToMatrix(const ExtensionFieldPoly 
 	long k = 0;
 	for (long i = 0; i < degree; i++) {
 		for (long j = 0; j < i+1; j++) {
-			mat_GF2E_A[j][i] = p.getCoeff(powers[i]);
-			k++;
+			mat_GF2E_A[j][i] = p.getCoeff(powers[k++]);
 		}
 	}
 	return mat_GF2E_A;
