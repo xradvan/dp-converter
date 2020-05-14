@@ -4,6 +4,8 @@
 #include "../polylib/PolyLib.h"
 #include "../log/Logger.h"
 
+#include <chrono>
+
 Converter::Converter()
 	: m_toBaseAlgorithm(new ToBaseAlgorithm1())
 	, m_toExtendedAlgorithm(new ToExtendedAlgrotihm1) {}
@@ -44,7 +46,11 @@ void Converter::toBasePolySet()
 		return;
 	}
 	INFO("Converting to base field polynomial");
+	auto start = std::chrono::system_clock::now();
 	BasePolySet result = m_toBaseAlgorithm->convert(toConvert);
+	auto end = std::chrono::system_clock::now();
+	std::chrono::duration<double> diff = end-start;
+	PRINT(diff.count());
 	m_output->putBasePolySet(result);
 }
 
@@ -56,6 +62,10 @@ void Converter::toExtensionFieldPoly()
 		return;
 	}
 	INFO("Converting to extension field polynomial");
+	auto start = std::chrono::system_clock::now();
 	ExtensionFieldPoly result = m_toExtendedAlgorithm->convert(toConvert);
+	auto end = std::chrono::system_clock::now();
+	std::chrono::duration<double> diff = end-start;
+	PRINT(diff.count());
 	m_output->putExtensionFieldPoly(result);
 }
