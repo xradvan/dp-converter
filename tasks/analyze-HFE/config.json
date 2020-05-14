@@ -1,13 +1,13 @@
 {
-	"name": "MIA Analysis",
-	"description": "Analyze MIA trapdoor and public key",
-	"degree": 11,
+	"name": "HFE Analysis",
+	"description": "Analyze HFE trapdoor and public key",
+	"degree": 9,
 	"task": "analyze",
 	"input": {
-		"input_base_dir": "../tasks/analyze-MIA/inputs/",
+		"input_base_dir": "../tasks/analyze-HFE/inputs/",
 		"files": [
 			{
-				"name": "MIA_sk_polynom.txt",
+				"name": "HFE_sk_polynom.txt",
 				"type": "EFP",
 				"format": "default",
 				"cases": [
@@ -16,7 +16,7 @@
 				]
 			},
 			{
-				"name": "MIA_pk_MQ.txt",
+				"name": "HFE_pk_MQ.txt",
 				"type": "BFP",
 				"format": "MQ",
 				"cases": [
@@ -26,5 +26,5 @@
 			}
 		]
 	},
-	"output": "../tasks/analyze-MIA/output.txt"
+	"output": "../tasks/analyze-HFE/output.txt"
 }
