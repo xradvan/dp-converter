@@ -5,7 +5,7 @@ import shutil
 import subprocess
 
 def usage():
-	print("Usage will be added later")
+	print("Run './configure' to create build directory and './configure clean' to clean it ")
 
 # base dir
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -14,6 +14,10 @@ os.chdir(os.path.dirname(os.path.realpath(__file__)))
 BUILDDIR = '.build'
 
 # clean build folder
+if len(sys.argv) > 1 and sys.argv[1] == '-h':
+	usage()
+	exit(0)
+
 if len(sys.argv) > 1 and sys.argv[1] == 'clean':
 	if os.path.exists(BUILDDIR):
 		print('Removing {0} directory'.format(BUILDDIR))
