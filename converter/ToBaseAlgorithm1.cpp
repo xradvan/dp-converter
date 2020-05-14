@@ -24,8 +24,6 @@ BasePolySet ToBaseAlgorithm1::convert(const ExtensionFieldPoly &toConvert)
 		}
 	}
 
-	INFO_POLY(toConvert);
-	PRINT("AAA");
 	// Convert terms
 	auto toConvertDeg = toConvert.degree();
 	for (ZZ i{1}; i <= toConvertDeg; i++) {
